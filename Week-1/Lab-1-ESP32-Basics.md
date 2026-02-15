@@ -8,14 +8,15 @@ In this first lab, you will build the "sensing" part of your Digital Twin. You w
 * Implement "Edge Intelligence" by triggering an alert (LED) locally.
 
 ## 🛠️ Step 1: The Wokwi Circuit
-1.  Go to [Wokwi.com](https://wokwi.com) and start a new **ESP32** project.
-2.  **Add Components:** Click the **"+"** button and add:
+1.  Go to [Wokwi.com](https://wokwi.com) and start a new **ESP32** project. If prompted for featured templates, select the **ESP32** starter template. 
+2. Save as curriculum-iot-digital-twin-celsius-lab-week-1.
+3.  **Add Components:** Click the **"+"** button and add:
     * **DHT22** (Temperature & Humidity Sensor)
     * **LED** (Red)
     * **Resistor** (Set to 220 Ohms)
-3.  **Wiring:**
-    * **DHT22:** VCC to ESP32 **3V3** | GND to ESP32 **GND** | SDA to ESP32 **GPIO 15**.
-    * **LED:** Long leg (Anode) to ESP32 **GPIO 2** | Short leg (Cathode) to Resistor | Resistor to **GND**.
+4.  **Wiring:**
+    * **DHT22:** dht1:VCC to **ESP32** esp:3V3 | dht1:GND to **ESP32** esp:GND.1 | dht1:SDA to **ESP32** esp:15.
+    * **LED:** Long leg (Anode) led1:A to **ESP32** esp:D2 | Short leg (Cathode) led1:C to r1:1 of the Resistor | r1:2 from the Resistor to **ESP32** esp:GND.2.
 
 ## 💻 Step 2: The Code
 Copy the code below into the `sketch.ino` tab in Wokwi. This code reads the temperature and turns on the "Critical Alert" LED if the temperature exceeds 30°C.
@@ -45,4 +46,41 @@ void loop() {
   }
 
   delay(2000); // Wait 2 seconds between readings
+}
+
+
+## 🧪 Step 3: Testing
+Click the Play button in Wokwi.
+
+If prompted to install DHT sensor library for ESPx library, click the link to install.
+
+Click on the DHT22 sensor while the simulation is running.
+
+Use the slider to change the temperature.
+
+Observe: Does the Red LED turn on when you go above 30°C? Check the Serial Monitor at the bottom to see the real-time data logs.
+
+---
+
+## BONUS: Converting Celcius to Fahrenheit
+1. Save a copy of your as curriculum-iot-digital-twin-fahrenheit-lab-week-1 by clicking the down arrow next to the Save button and selecting Save a Copy button.
+2. Copy the code below into the `sketch.ino` tab in Wokwi. Lines 13 - 29.
+
+```cpp
+void loop() {
+  TempAndHumidity data = dhtSensor.getTempAndHumidity();
+  
+  // Convert Celsius to Fahrenheit using the library helper
+  float tempF = dhtSensor.toFahrenheit(data.temperature);
+  
+  Serial.println("Temp: " + String(tempF, 2) + "°F");
+  
+  // Update your logic for Fahrenheit (e.g., 86°F is roughly 30°C)
+  if (tempF > 86) {
+    digitalWrite(LED_PIN, HIGH);
+  } else {
+    digitalWrite(LED_PIN, LOW);
+  }
+
+  delay(2000);
 }
