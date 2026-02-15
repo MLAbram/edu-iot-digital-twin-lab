@@ -1,8 +1,4 @@
 # Curriculum: IoT Digital Twin Lab
-> [!TIP]
-> **Navigating this Repository:** > * **Preview:** The formatted view you are reading now.
-> * **Code:** The raw text and files for each lab.
-> * **Blame:** Don't let the name scare you! In the dev world, "Blame" is a bit of legacy humor. Think of it as **"Authorship"** or **"Praise"**—it allows you to see the history of every line of code so you can understand the *why* behind the *what*.
 
 ### A 6-Week Full-Stack IoT Experience (Zero Hardware Cost)
 
