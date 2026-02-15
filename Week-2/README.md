@@ -17,7 +17,8 @@ Wokwi provides a built-in virtual gateway. You don't need to change your wiring 
 ## 📚 Step 3: Add the Library
 1. In your Wokwi project, click the **Library Manager** tab (the bin icon).
 2. Search for and add: **PubSubClient**.
-3. Ensure **DHTesp** is still there from last week.
+3. Ensure **DHT sensor library for ESPx** is still there from last week.
+4. Save your work.
 
 ## 💻 Step 4: The Connected Code
 Replace your code with this version. This includes the WiFi and MQTT "handshake" logic. 
@@ -84,14 +85,27 @@ void loop() {
 }
 ```
 
-## 🧪 Step 5: Verification (The Cloud View)
-To see your data leaving Wokwi and hitting the internet, follow these steps:
+Save your work.
 
-1.  Open the [HiveMQ Web Client](http://www.hivemq.com/demos/websocket-client/).
-2.  Click the **Connect** button (Status should change to "Connected").
-3.  Click **Add New Topic Subscription**.
-4.  Enter the topic: `curriculum/iot/temp` and click **Subscribe**.
-5.  **Observe:** Your Fahrenheit readings should start appearing in the "Messages" log every 5 seconds.
+## 🧪 Step 5: Verification (The Cloud View)
+> [!TIP]
+> **Pro-Tip:** To keep this guide open while navigating to **HiveMQ Web Client**, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+
+To see your data leaving Wokwi and hitting the internet, follow these steps exactly:
+
+1.  Open the [HiveMQ Web Client](https://www.hivemq.com/demos/websocket-client/).
+2.  **Configure the Connection:**
+    * **Host:** `broker.hivemq.com`
+    * **Port:** `8884` 
+    * **SSL:** ✅ **Must be Checked** (This ensures a secure connection)
+    * **ClientID:** Click "Generate ID" to ensure a unique name.
+3.  Click the **Connect** button. The status light should turn **Green**.
+4.  Click **Add New Topic Subscription**.
+5.  **Topic:** `curriculum/iot/temp`
+6.  Click **Subscribe**.
+
+### 📝 What to Observe
+Adjust the temperature slider in your Wokwi simulation. Within 5 seconds, you should see a new message appear in the HiveMQ "Messages" section showing the updated Fahrenheit value.
 
 > [!TIP]
 > **What to look for:** If you see numbers appearing, congratulations! You have successfully created a "Digital Twin" data stream. Your virtual device is now communicating with a global server.
