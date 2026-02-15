@@ -23,10 +23,10 @@ In this course, we remove the "hardware tax." Instead of requiring a Raspberry P
 | [Week 0](./Week-0/README.md) | **Environment Setup** | Install Python, PostgreSQL, and VS Code. |
 | [Week 1](./Week-1/README.md) | **The Virtual Edge** | ESP32 logic and DHT22 sensor integration in Wokwi. |
 | [Week 2](./Week-2/README.md) | **M2M Networking** | Understanding MQTT and the Pub/Sub model. |
-| **3** | **Data Architect** | Designing relational schemas in PostgreSQL. |
-| **4** | **The Python Bridge** | Building the middleware to connect Cloud to Database. |
-| **5** | **Security & Edge** | Environment variables (.env) and data throttling. |
-| **6** | **Visualization** | Creating live dashboards for data insights. |
+| [Week 3](./Week-3/README.md) | **Data Architect** | Designing relational schemas in PostgreSQL. |
+| [Week 4](./Week-4/README.md) | **The Python Bridge** | Building the middleware to connect Cloud to Database. |
+| [Week 5](./Week-5/README.md) | **Security & Edge** | Environment variables (.env) and data throttling. |
+| [Week 6](./Week-6/README.md) | **Visualization** | Creating live dashboards for data insights. |
 
 ---
 
