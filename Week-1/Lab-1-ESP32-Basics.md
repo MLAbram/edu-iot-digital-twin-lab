@@ -71,7 +71,10 @@ Now that you have the basic circuit working in Celsius, let’s adapt the projec
 * Perform mathematical data transformation at the "Edge."
 * Understand the difference between metric sensor data and localized user requirements.
 
-### 💻 Step 1: The Logic Update
+## 🛠️ Step 1: Clone Work
+Make a copy of your existing file by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-fahrenheit-lab-week-1.
+
+### 💻 Step 2: The Logic Update
 In your code, we need to convert the raw Celsius data into Fahrenheit. Update your `loop()` function to include the conversion formula:
 
 ```cpp
