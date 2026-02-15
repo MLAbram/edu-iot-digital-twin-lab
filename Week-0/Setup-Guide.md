@@ -15,8 +15,8 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 | Tool | Windows | macOS | Linux |
 | :--- | :--- | :--- | :--- |
-| **Python** | [Watch Search](https://www.youtube.com/results?search_query=how+to+install+python+on+windows+11) | [Watch Search](https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew) | [Watch Search](https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux) |
-| **PostgreSQL** | [Watch Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows) | [Watch Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac) | [Watch Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux) |
+| **Python** | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+windows+11) | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew) | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux) |
+| **PostgreSQL** | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows) | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac) | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux) |
 
 ---
 
