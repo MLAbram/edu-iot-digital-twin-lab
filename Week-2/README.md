@@ -83,3 +83,28 @@ void loop() {
   delay(5000); // Send data every 5 seconds
 }
 ```
+
+## 🧪 Step 5: Verification (The Cloud View)
+To see your data leaving Wokwi and hitting the internet, follow these steps:
+
+1.  Open the [HiveMQ Web Client](http://www.hivemq.com/demos/websocket-client/).
+2.  Click the **Connect** button (Status should change to "Connected").
+3.  Click **Add New Topic Subscription**.
+4.  Enter the topic: `curriculum/iot/temp` and click **Subscribe**.
+5.  **Observe:** Your Fahrenheit readings should start appearing in the "Messages" log every 5 seconds.
+
+> [!TIP]
+> **What to look for:** If you see numbers appearing, congratulations! You have successfully created a "Digital Twin" data stream. Your virtual device is now communicating with a global server.
+
+---
+
+## 🛠️ Troubleshooting (If it's not working)
+
+If your Serial Monitor is showing "WiFi Connected" but you don't see data on the website, check these three things:
+
+* **The Connection Button:** Ensure you clicked the **Connect** button on the HiveMQ website *before* subscribing to the topic. If you aren't connected to the broker, you won't see the messages.
+* **The Library Manager:** Double-check that `PubSubClient` is listed in your Wokwi Library Manager. If the library is missing, the code cannot "speak" MQTT.
+* **Topic Matching:** MQTT topics are case-sensitive. Ensure `curriculum/iot/temp` in your code perfectly matches what you typed into the HiveMQ subscription box.
+
+> [!CAUTION]
+> **Client ID Conflict:** MQTT only allows one connection per "Client ID." If the Serial Monitor says "Failed, rc=-2", it might mean someone else is using the ID `RoadTrip_Student_Device`. Try changing that name in your code to something unique (like your name) and restart the simulation.
