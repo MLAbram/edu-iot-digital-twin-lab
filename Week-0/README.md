@@ -15,8 +15,8 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 | Tool | Windows | macOS | Linux |
 | :--- | :--- | :--- | :--- |
-| **Python** | [YouTube Search](<a href="https://www.youtube.com/results?search_query=install+python+windows" target="_blank">YouTube Video</a>) | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew) | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux) |
-| **PostgreSQL** | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows) | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac) | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux) |
+| **Python** | <a href="https://www.youtube.com/results?search_query=install+python+windows" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux" target="_blank">YouTube Search</a> |
+| **PostgreSQL** | <a href="https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux" target="_blank">YouTube Search</a> |
 
 ---
 
