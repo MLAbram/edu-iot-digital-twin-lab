@@ -64,9 +64,15 @@ Observe: Does the Red LED turn on when you go above 30°C? Check the Serial Moni
 
 ---
 
-## BONUS: Converting Celcius to Fahrenheit
-1. Save a copy of your as curriculum-iot-digital-twin-fahrenheit-lab-week-1 by clicking the down arrow next to the Save button and selecting Save a Copy button.
-2. Copy the code below into the `sketch.ino` tab in Wokwi. Lines 13 - 29.
+## 🌟 BONUS: Unit Conversion (Fahrenheit)
+Now that you have the basic circuit working in Celsius, let’s adapt the project for a US-based environment. 
+
+### 🎯 Learning Objective
+* Perform mathematical data transformation at the "Edge."
+* Understand the difference between metric sensor data and localized user requirements.
+
+### 💻 Step 1: The Logic Update
+In your code, we need to convert the raw Celsius data into Fahrenheit. Update your `loop()` function to include the conversion formula:
 
 ```cpp
 void loop() {
@@ -86,3 +92,16 @@ void loop() {
 
   delay(2000);
 }
+```
+
+🧪 Step 2: Verification
+Click Play in Wokwi.
+
+Adjust the DHT22 slider.
+
+Observe: Your Serial Monitor should now display temperatures in °F.
+
+Confirm: Does the Red LED illuminate when the temperature crosses 86°F?
+
+💡 Why this matters
+In a professional Digital Twin setup, sensors often speak in one "language" (Metric), but the dashboard needs to speak another (Imperial). Handling this conversion on the ESP32 is called Edge Processing—it saves the central server from having to do the math later!
