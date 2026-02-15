@@ -64,7 +64,16 @@ Observe: Does the Red LED turn on when you go above 30°C? Check the Serial Moni
 
 ---
 
-![Wokwi Simulation Results](./images/lab1-results.png)
+## 🏁 Expected Results
+Once your simulation is running and you have adjusted the DHT22 slider, your workspace should look similar to the image below:
+
+![Lab 1 Final Result](./images/lab1-results.png)
+
+### 📝 Results Checklist:
+* **Serial Monitor:** Shows live temperature readings every 2 seconds.
+* **DHT22 Sensor:** Slider moved above the threshold (30°C or 86°F).
+* **Red LED:** Fully illuminated.
+* **ESP32:** If using Pin 2, notice the small blue "on-board" LED is also lit!
 
 ---
 
