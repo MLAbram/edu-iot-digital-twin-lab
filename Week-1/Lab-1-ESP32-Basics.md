@@ -64,6 +64,10 @@ Observe: Does the Red LED turn on when you go above 30°C? Check the Serial Moni
 
 ---
 
+![Wokwi Simulation Results](./images/lab1-results.png)
+
+---
+
 ## 🌟 BONUS: Unit Conversion (Fahrenheit)
 Now that you have the basic circuit working in Celsius, let’s adapt the project for a US-based environment. 
 
