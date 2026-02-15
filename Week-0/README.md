@@ -1,5 +1,4 @@
 # Week 0: Environment Setup 🛠️
-
 > [!TIP]
 > **Navigating this Repository:** 
 > * **Preview:** The formatted view you are reading now.
@@ -11,12 +10,15 @@ To participate in this lab, you need a functional development environment. Follo
 ---
 
 ### 📺 Video Installation Guides
+> [!TIP]
+> **Pro-Tip:** To keep this guide open while watching the videos, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+
 If you prefer a visual walkthrough, click the links below for a curated search of the latest tutorials for your specific system:
 
 | Tool | Windows | macOS | Linux |
 | :--- | :--- | :--- | :--- |
-| **Python** | <a href="https://www.youtube.com/results?search_query=install+python+windows" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux" target="_blank">YouTube Search</a> |
-| **PostgreSQL** | <a href="https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac" target="_blank">YouTube Search</a> | <a href="https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux" target="_blank">YouTube Search</a> |
+| **Python** | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+windows) | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew) | [YouTube Search](https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux) |
+| **PostgreSQL** | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows) | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac) | [YouTube Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux) |
 
 ---
 
