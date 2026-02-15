@@ -47,7 +47,9 @@ void loop() {
 
   delay(2000); // Wait 2 seconds between readings
 }
+```
 
+---
 
 ## 🧪 Step 3: Testing
 Click the Play button in Wokwi.
