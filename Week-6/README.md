@@ -1,0 +1,145 @@
+# Week 2: Machine-to-Machine (M2M) Networking 🌐
+
+Last week, your ESP32 made decisions locally. This week, we connect it to the internet so it can report its data to the world.
+
+## 🎯 Learning Objectives
+* Connect the virtual ESP32 to a simulated WiFi network.
+* Understand the **Publisher/Subscriber** model.
+* Send live temperature data to a Public MQTT Broker.
+
+## ⚖️ Step 1: Clone Work
+1. Open curriculum-iot-digital-twin-celsius-lab-week-1. 
+2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-2.
+
+## 🛠️ Step 2: The Wokwi WiFi
+Wokwi provides a built-in virtual gateway. You don't need to change your wiring from Week 1! We only need to update the library and the code.
+
+## 📚 Step 3: Add the Library
+1. In your Wokwi project, click the **Library Manager** tab (the bin icon).
+2. Search for and add: **PubSubClient**.
+3. Ensure **DHT sensor library for ESPx** is still there from last week.
+4. Save your work.
+
+## 💻 Step 4: The Connected Code
+Replace your code with this version. This includes the WiFi and MQTT "handshake" logic. 
+
+*(Note: In Wokwi, the WiFi SSID is always "Wokwi-GUEST" with no password.)*
+
+```cpp
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include "DHTesp.h"
+
+// WiFi and MQTT Settings
+const char* ssid = "Wokwi-GUEST";
+const char* password = "";
+const char* mqtt_server = "broker.hivemq.com";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+DHTesp dhtSensor;
+
+void setup() {
+  Serial.begin(115200);
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  dhtSensor.setup(15, DHTesp::DHT22);
+}
+
+void setup_wifi() {
+  delay(10);
+  Serial.println("Connecting to WiFi...");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi Connected!");
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    if (client.connect("ESP32_Student_Client")) {
+      Serial.println("connected");
+    } else {
+      delay(5000);
+    }
+  }
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  TempAndHumidity data = dhtSensor.getTempAndHumidity();
+  String tempStr = String(data.temperature, 2);
+  
+  // Publish data to the cloud!
+  Serial.println("Publishing: " + tempStr);
+  client.publish("university/iot/temp", tempStr.c_str());
+
+  delay(5000); // Send data every 5 seconds
+}
+```
+
+Save your work.
+
+## 🧪 Step 5: Verification (The Cloud View)
+> [!TIP]
+> **Pro-Tip:** To keep this guide open while navigating to **HiveMQ Web Client**, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+
+To see your data leaving Wokwi and hitting the internet, follow these steps exactly:
+
+1.  Open the [HiveMQ Web Client](https://www.hivemq.com/demos/websocket-client/).
+2.  **Configure the Connection:**
+    * **Host:** `broker.hivemq.com`
+    * **Port:** `8884` 
+    * **SSL:** ✅ **Must be Checked** (This ensures a secure connection)
+    * **ClientID:** Click "Generate ID" to ensure a unique name.
+3.  Click the **Connect** button. The status light should turn **Green**.
+4.  Click **Add New Topic Subscription**.
+5.  **Topic:** `curriculum/iot/temp`
+6.  Click **Subscribe**.
+
+### 📝 What to Observe
+Adjust the temperature slider in your Wokwi simulation. Within 5 seconds, you should see a new message appear in the HiveMQ "Messages" section showing the updated Fahrenheit value.
+
+> [!TIP]
+> **What to look for:** If you see numbers appearing, congratulations! You have successfully created a "Digital Twin" data stream. Your virtual device is now communicating with a global server.
+
+---
+
+## 🛠️ Troubleshooting (If it's not working)
+
+If your Serial Monitor is showing "WiFi Connected" but you don't see data on the website, check these three things:
+
+* **The Connection Button:** Ensure you clicked the **Connect** button on the HiveMQ website *before* subscribing to the topic. If you aren't connected to the broker, you won't see the messages.
+* **The Library Manager:** Double-check that `PubSubClient` is listed in your Wokwi Library Manager. If the library is missing, the code cannot "speak" MQTT.
+* **Topic Matching:** MQTT topics are case-sensitive. Ensure `curriculum/iot/temp` in your code perfectly matches what you typed into the HiveMQ subscription box.
+
+> [!CAUTION]
+> **Client ID Conflict:** MQTT only allows one connection per "Client ID." If the Serial Monitor says "Failed, rc=-2", it might mean someone else is using the ID `RoadTrip_Student_Device`. Try changing that name in your code to something unique (like your name) and restart the simulation.
+
+---
+
+## 🛰️ How It Works: The "Post Office" Analogy
+
+If you are wondering how your slider movement in a browser gets to another website (HiveMQ) without being "plugged in," think of it like a **Wireless Indoor/Outdoor Thermometer** you might use at home.
+
+### **The Home Scenario**
+1.  **The Publisher (The Outdoor Sensor):** You hang a sensor outside. Its only job is to measure the temp and "shout" it out over the airwaves. It doesn't know if you are looking at the screen or not.
+2.  **The Broker (The Airwaves/Hub):** The data travels through the air. In our lab, the **HiveMQ Broker** acts as the digital "airwaves." It catches the message and holds it.
+3.  **The Subscriber (The Indoor Display):** Your kitchen display "listens" for that specific frequency. When it hears the data, it updates the screen.
+
+### **Our Digital Twin Scenario**
+* **Wokwi ESP32** = The Outdoor Sensor (Publisher)
+* **HiveMQ Cloud** = The Hub (Broker)
+* **HiveMQ Web Client** = The Kitchen Display (Subscriber)
+
+> [!TIP]
+> **Why this is powerful:** Just like you could add a second display in your bedroom to see the same outdoor temp, we can add a **Python Script** (in Week 3) to "listen" to the same data and save it to a database!
+
+---

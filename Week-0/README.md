@@ -1,4 +1,5 @@
 # Week 0: Environment Setup 🛠️
+
 > [!TIP]
 > **Navigating this Repository:** 
 > * **Preview:** The formatted view you are reading now.
