@@ -1,22 +1,23 @@
 # Week 3: The Data Bridge 🌉
 
-Until now, your data has been "volatile"—as soon as you close the HiveMQ website, the history is gone. Today, we build a Python bridge to save that data forever in a **PostgreSQL** database.
+Until now, your data has been "volatile"—as soon as you close the HiveMQ website, the history is gone. This week, we build a Python bridge to capture that data and save it permanently into a **PostgreSQL** database.
 
 ## 🎯 Learning Objectives
 * Write a Python script to subscribe to MQTT data.
-* Connect Python to a local PostgreSQL database.
-* Store "Real-Time" telemetry data for future analysis.
+* Use environment variables (.env) to protect database credentials.
+* Store telemetry data with microsecond precision in a structured schema.
 
-## 🛠️ Step 1: Database Setup
-Before running the code, you need a "bucket" to hold the data. Open **pgAdmin 4** or your terminal and run this SQL command:
+## 🛠️ Step 1: Database & Schema Setup
+Before running the code, we need to create a professional data structure. Open **pgAdmin 4** or your terminal and run the following commands:
 
 ```sql
--- Run this in pgAdmin or psql
+-- 1. Create the central database
 CREATE DATABASE curriculum;
 
--- Connect to the curriculum database, then run:
+-- 2. Connect to the 'curriculum' database, then create the schema
 CREATE SCHEMA curriculum_iot_digital_twin_lab;
 
+-- 3. Create the table with audit-ready timestamps
 CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
     id SERIAL PRIMARY KEY,
     temperature FLOAT,
@@ -25,8 +26,8 @@ CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
 );
 ```
 
-## Step 2: The Environment Setup
-You should never save sensitive values in your code that could be open to the public when saving on GitHub, for example. We will use python-dotenv to read the .env file where you will have this sensitive data.
+## 📦 Step 2: Environment & Libraries
+To keep our project secure and functional, we need to install the necessary tools. You should never save sensitive values in your code that could be open to the public when saving on GitHub, for example. We will use python-dotenv to read the .env file where you will have this sensitive data.
 
 From the terminal console, type the following command to install paho-mqtt, psycopg2, and python-dotenv:
 
@@ -40,18 +41,12 @@ DB_PASS=your_secret_password
 DB_HOST=localhost
 DB_PORT=5432
 
-## 📦 Step 3: Install Python Libraries
-You will need two libraries: paho-mqtt (to talk to the broker) and psycopg2 (to talk to PostgreSQL). Run this in your VS Code terminal:
+Security Check: Ensure your .gitignore file includes .env so you don't accidentally push your password to GitHub!
 
-Bash
-pip install paho-mqtt psycopg2
+## 🐍 Step 3: The Python Bridge Code
+Create a file named bridge.py in your Week-3 folder. This script acts as the "Subscriber" that listens to the broker and writes to your database.
 
-## 🐍 Step 4: The Python Bridge Code
-> [!TIP]
-> **Warning** Reminder to **never** push your actual database passwords to GitHub! 
-
-Create a file named bridge.py in your Week-3 folder. This script acts like the "Indoor Thermometer Display" from our analogy, but instead of showing the data, it saves it.
-
+```Python
 import os
 import paho.mqtt.client as mqtt
 import psycopg2
@@ -76,20 +71,31 @@ MQTT_TOPIC = "curriculum/iot/temp"
 
 def on_message(client, userdata, msg):
     try:
-      temp_value = float(msg.payload.decode())
-      print(f"📥 Received: {temp_value}°F")
+        # Decode the temperature from the broker
+        temp_value = float(msg.payload.decode())
+        print(f"📥 Received: {temp_value}°F")
+        
+        # Connect and Insert into the specific Schema
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Note: aud_insert_ts is handled automatically by PostgreSQL
+        query = """
+            INSERT INTO curriculum_iot_digital_twin_lab.sensor_data (temperature, unit) 
+            VALUES (%s, 'F')
+        """
+        
+        cur.execute(query, (temp_value,))
+        conn.commit()
+        
+        cur.close()
+        conn.close()
+        print("✅ Data successfully saved to PostgreSQL.")
+        
+    except Exception as e:
+        print(f"❌ Error processing message: {e}")
 
-      # Save to PostgreSQL using the specific Schema
-      conn = get_db_connection()
-      cur = conn.cursor()
-      query = "INSERT INTO curriculum_iot_digital_twin_lab.sensor_data (temperature, unit) VALUES (%s, 'F')"
-      cur.execute(query, (temp_value,))
-      conn.commit()
-      cur.close()
-      conn.close()
-      except Exception as e:
-      print(f"❌ Error: {e}")
-
+# Initialize MQTT Client
 client = mqtt.Client()
 client.on_message = on_message
 client.connect(MQTT_BROKER, 1883, 60)
@@ -97,16 +103,24 @@ client.subscribe(MQTT_TOPIC)
 
 print(f"🚀 Bridge is active. Listening for topic: {MQTT_TOPIC}")
 client.loop_forever()
+```
 
-## 🧪 Step 5: Verification
-Start your Wokwi Simulation from Week 2.
+## 🧪 Step 4: Verification
+Start your Wokwi Simulation (from Week 2).
 
-Run your Python script: python bridge.py.
+Run your Python script in VS Code: python bridge.py.
 
 Move the slider in Wokwi.
 
-Check your database: SELECT * FROM sensor_data;.
+Go to pgAdmin and run:
+SELECT * FROM curriculum_iot_digital_twin_lab.sensor_data;
 
----
-💡 Why the (6)?
-We use timestamp(6) to capture data down to the microsecond. In IoT, devices can send data very quickly. If we used a standard timestamp, two readings might look like they happened at the exact same time. Precision matters when you are building a "Digital Twin" of a real-world system!
+## 💡 Why This Matters
+**Data Persistence**
+In the real world, a dashboard only shows you what is happening now. By building this bridge, you are creating a historical record. This allows an entrepreneur to look back at trends, such as: "How hot did the RV get every day last July?"
+
+**Microsecond Precision**
+We used timestamp(6) for our aud_insert_ts field. In high-speed IoT environments, multiple sensors might report data at almost the exact same time. Standard seconds aren't enough; we need that microsecond precision to ensure our "Digital Twin" accurately reflects the sequence of events.
+
+**Professional Security**
+By using .env files, you are practicing Credential Management. Hard-coding passwords into your scripts is a major security risk. Learning to separate your "secrets" from your "code" is a requirement for any professional developer or tech entrepreneur.
