@@ -1,37 +1,5 @@
 # Week 3: The Data Bridge 🌉
 
-Until now, your data has been "volatile"—as soon as you close the HiveMQ website, the history is gone. This week, we build a Python bridge to save that data forever in a **PostgreSQL** database.
-
-## 🎯 Learning Objectives
-* Write a Python script to subscribe to MQTT data.
-* Connect Python to a local PostgreSQL database.
-* Store "Real-Time" telemetry data for future analysis.
-
-## 🛠️ Step 1: Database Setup
-Before running the code, you need a "bucket" to hold the data. Open **pgAdmin 4** or your terminal and run this SQL command:
-
-```sql
-CREATE TABLE sensor_data (
-    id SERIAL PRIMARY KEY,
-    temperature FLOAT,
-    unit VARCHAR(1),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-
-Gemini said
-This is where the "Digital Twin" really starts to take shape. In Week 3, we move away from the web browser and start building your own local infrastructure.
-
-We are going to create a Python Bridge. This script will act as a permanent "Subscriber" that sits between the HiveMQ Broker and your PostgreSQL database.
-
-Week 3: The Data Bridge (Python & PostgreSQL)
-For this lab, students will run Python locally on their computers (using VS Code) while the ESP32 continues to run in the Wokwi cloud.
-
-Lab Instructions: Week-3/README.md
-Markdown
-# Week 3: The Data Bridge 🌉
-
 Until now, your data has been "volatile"—as soon as you close the HiveMQ website, the history is gone. Today, we build a Python bridge to save that data forever in a **PostgreSQL** database.
 
 ## 🎯 Learning Objectives
