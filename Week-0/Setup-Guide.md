@@ -16,6 +16,16 @@ To participate in this lab, you need a functional development environment. Follo
 
 ---
 
+### 📺 Video Installation Guides
+If you prefer a visual walkthrough, click the links below for a curated search of the latest tutorials for your specific system:
+
+| Tool | Windows | macOS | Linux |
+| :--- | :--- | :--- | :--- |
+| **Python** | [Watch Search](https://www.youtube.com/results?search_query=how+to+install+python+on+windows+11) | [Watch Search](https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew) | [Watch Search](https://www.youtube.com/results?search_query=how+to+install+python+on+ubuntu+linux) |
+| **PostgreSQL** | [Watch Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+windows) | [Watch Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+mac) | [Watch Search](https://www.youtube.com/results?search_query=install+postgresql+and+pgadmin+on+linux) |
+
+---
+
 ## 2. Python 3.x Installation
 
 ### 🪟 Windows
