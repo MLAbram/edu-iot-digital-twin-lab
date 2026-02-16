@@ -128,7 +128,7 @@ client.loop_forever()
 ```
 
 ## 🧪 Step 4: Verification
-Start your Wokwi Simulation (from Week 2).
+Start your [Wokwi](https://wokwi.com/) Simulation (from Week 2).
 
 Run your Python script in VS Code: python bridge.py.
 

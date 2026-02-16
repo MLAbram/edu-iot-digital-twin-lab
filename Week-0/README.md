@@ -79,7 +79,7 @@ VS Code is our primary workspace for writing Python and managing our GitHub repo
 ## 🛠️ Step 5: Wokwi Account Setup
 Wokwi allows us to simulate hardware without needing physical wires.
 
-1. Create a free account at <a href="https://wokwi.com/" target="_blank">wokwi.com</a>.
+1. Create a free account at [Wokwi](https://wokwi.com/).
 2. Sign in so you can save your projects and share them in your repository.
 
 ---
