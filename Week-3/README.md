@@ -56,13 +56,13 @@ CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
 pip install paho-mqtt psycopg2 python-dotenv
 
 Create a file in Week-3 folder titled .env. Copy and paste the below: DB_ values and update only the DB_PASS to your password. Save the file. 
-
+```
 DB_NAME=curriculum
 DB_USER=postgres
 DB_PASS=your_secret_password
 DB_HOST=localhost
 DB_PORT=5432
-
+```
 Security Check: Ensure your .gitignore file includes .env so you don't accidentally push your password to GitHub!
 
 ## 🐍 Step 3: The Python Bridge Code
