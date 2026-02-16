@@ -32,10 +32,25 @@ CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
 >
 >To keep our project secure and functional, we need to install the necessary tools. You should never save sensitive values in your code that could be open to the public when saving on GitHub, for example. We will use python-dotenv to read the .env file where you will have this sensitive data.
 >
->From the terminal console, type the following command to install paho-mqtt, psycopg2, and python-dotenv:
->
-> ```
+>Step 1: From the terminal console, type the following command to install paho-mqtt, psycopg2, and python-dotenv:
+>```
 >sudo apt install python3-venv
+>```
+>
+>Step 2: Create your environment
+>```
+>python3 -m venv .venv
+>```
+>
+>Step 3: Activate it
+>```
+>source .venv/bin/activate
+>```
+>(You should now see (.venv) appear at the beginning of your terminal prompt!)
+>
+>Step 4: Now install your libraries
+>```
+>pip install paho-mqtt psycopg2 python-dotenv
 >```
 
 pip install paho-mqtt psycopg2 python-dotenv
