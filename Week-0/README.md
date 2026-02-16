@@ -110,7 +110,7 @@ Create your first sub-folders: Week-0, Week-1, and so on.
 
 ---
 
-## **Security Reminder**
+## 🔐 Security Reminder
 If you will saving this project to your Github, confirm you have a `.gitignore` file in the root of your folder.
 
 ### Security: Never upload your database credentials
