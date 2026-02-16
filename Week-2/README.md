@@ -79,7 +79,7 @@ void loop() {
   
   // Publish data to the cloud!
   Serial.println("Publishing: " + tempStr);
-  client.publish("university/iot/temp", tempStr.c_str());
+  client.publish("curriculum/iot/temp", tempStr.c_str());
 
   delay(5000); // Send data every 5 seconds
 }
@@ -99,6 +99,7 @@ To see your data leaving Wokwi and hitting the internet, follow these steps exac
     * **Port:** `8884` 
     * **SSL:** ✅ **Must be Checked** (This ensures a secure connection)
     * **ClientID:** Click "Generate ID" to ensure a unique name.
+    * **Topic:** `curriculum/iot/temp` Click the double arrows next to Publish
 3.  Click the **Connect** button. The status light should turn **Green**.
 4.  Click **Add New Topic Subscription**.
 5.  **Topic:** `curriculum/iot/temp`

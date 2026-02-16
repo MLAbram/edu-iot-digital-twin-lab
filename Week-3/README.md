@@ -146,3 +146,18 @@ We used timestamp(6) for our aud_insert_ts field. In high-speed IoT environments
 
 **Professional Security**
 By using .env files, you are practicing Credential Management. Hard-coding passwords into your scripts is a major security risk. Learning to separate your "secrets" from your "code" is a requirement for any professional developer or tech entrepreneur.
+
+---
+
+## ✅ Week 3 Final Checklist
+Before you submit your work, ensure you can check off every item below. This is how you verify your "Digital Twin" pipeline is production-ready.
+
+- [ ] **Environment Active:** Does your terminal prompt show `(SandboxEnvironment)`?
+- [ ] **Security Check:** Is your `.env` file listed in your `.gitignore`? (Verify your password is NOT on GitHub!)
+- [ ] **Topic Alignment:** Does the `MQTT_TOPIC` in your Python script match the topic in your Wokwi C++ code exactly?
+- [ ] **Version Control:** Are you using `CallbackAPIVersion.VERSION2` in your `bridge.py` to avoid deprecation warnings?
+- [ ] **The "Slider Test":** When you move the DHT22 slider in Wokwi, does the Python terminal say `✅ Data successfully saved to PostgreSQL`?
+- [ ] **Database Persistence:** When you run `SELECT * FROM curriculum_iot_digital_twin_lab.sensor_data;` in pgAdmin, do you see your actual Wokwi readings with microsecond timestamps?
+
+### 🏁 Results
+If you have checked all the boxes, you have successfully built a **Persistent IoT Data Pipeline**. You are no longer just simulating hardware; you are capturing and storing real-time telemetry like a professional Data Engineer.
