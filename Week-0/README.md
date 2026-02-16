@@ -30,6 +30,7 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 ---
 
 ## 🐍 Step 2. Python 3.x Installation
+Python is the "bridge" we will use to move data from the cloud to our database.
 
 ### 🪟 Windows
 1. Download the installer from [python.org](https://www.python.org/downloads/).
@@ -49,6 +50,7 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 ---
 
 ## 🐘 Step 3. PostgreSQL & pgAdmin 4
+PostgreSQL is where we will store our historical sensor data.
 
 ### 🪟 Windows
 1. Download the installer from [EnterpriseDB](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads).
@@ -65,6 +67,8 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 ---
 
 ## 🛠️ Step 4. Visual Studio Code (All OS)
+VS Code is our primary workspace for writing Python and managing our GitHub repository.
+
 1. Download the correct version for your OS from [code.visualstudio.com](https://code.visualstudio.com/).
 2. Open VS Code, go to the **Extensions** view (Ctrl+Shift+X), and install:
    * **Python** (by Microsoft)
@@ -72,7 +76,15 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 ---
 
-## 📂 Step 5: Initialize Your Local Workspace
+## 🛠️ Step 5: Wokwi Account Setup
+Wokwi allows us to simulate hardware without needing physical wires.
+
+1. Create a free account at <a href="https://wokwi.com/" target="_blank">wokwi.com</a>.
+2. Sign in so you can save your projects and share them in your repository.
+
+---
+
+## 📂 Step 6: Initialize Your Local Workspace
 
 Now that your tools are installed, you need a local place to save your code and sync it with GitHub. You have two options:
 
@@ -123,64 +135,3 @@ Open your terminal (or Command Prompt) and run:
 2. `pip --version` (or `pip3 --version`)
 
 If both return a version number, you are ready for Week 1!
-
-
----
-
-
-
-## Week 0: 🧱 Setting the Foundation
-
-Before we can build a **Digital Twin**, we need the right tools in our professional toolbox. Follow these steps to prepare your local environment for the weeks ahead.
-
-> [!TIP]
-> **Pro-Tip:** To keep this guide open while watching the videos or visiting external sites, **Right-Click** the links below and select **"Open link in new tab"**.
-
----
-
-## Step 1: 🐍 Python Installation
-Python is the "bridge" we will use to move data from the cloud to our database.
-
-1. Download and install Python from <a href="https://www.python.org/" target="_blank">python.org</a>.
-2. **Important:** During installation, check the box that says **"Add Python to PATH"**.
-
-| OS | Video Guide |
-| :--- | :--- |
-| **Windows** | [YouTube Video](https://www.youtube.com/results?search_query=how+to+install+python+on+windows+11) |
-| **macOS** | [YouTube Video](https://www.youtube.com/results?search_query=how+to+install+python+on+mac+homebrew) |
-
----
-
-## Step 2: 🐘 PostgreSQL & pgAdmin
-PostgreSQL is where we will store our historical sensor data.
-
-1. Download the Interactive Installer from <a href="https://www.postgresql.org/download/" target="_blank">postgresql.org</a>.
-2. Follow the prompts to install both the Database Server and **pgAdmin 4** (the management tool).
-3. **Remember your password!** You will need it for the `.env` files in Week 3.
-
----
-
-## Step 3: 💻 Visual Studio Code (VS Code)
-VS Code is our primary workspace for writing Python and managing our GitHub repository.
-
-1. Download and install from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a>.
-2. Open VS Code and install the **Python Extension** (by Microsoft) from the Extensions Marketplace.
-
----
-
-## Step 4: 🛠️ Wokwi Account Setup
-Wokwi allows us to simulate hardware without needing physical wires.
-
-1. Create a free account at <a href="https://wokwi.com/" target="_blank">wokwi.com</a>.
-2. Sign in so you can save your projects and share them in your repository.
-
----
-
-## Step 5: 📂 Initialize Your Local Workspace
-Now, create the home for your curriculum.
-
-1. **Clone or Create:** Open your terminal and run:
-```bash
-   git clone [https://github.com/MLAbram/curriculum-iot-digital-twin-lab.git](https://github.com/MLAbram/curriculum-iot-digital-twin-lab.git)
-   cd curriculum-iot-digital-twin-lab
-```
