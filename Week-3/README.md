@@ -35,7 +35,7 @@ CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
 >From the terminal console, type the following command to install paho-mqtt, psycopg2, and python-dotenv:
 >
 > ```
-sudo apt install python3-venv
+>sudo apt install python3-venv
 >```
 
 pip install paho-mqtt psycopg2 python-dotenv
