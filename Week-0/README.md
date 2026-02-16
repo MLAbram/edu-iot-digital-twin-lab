@@ -110,19 +110,19 @@ Create your first sub-folders: Week-0, Week-1, and so on.
 
 ---
 
-### **Security Reminder**
+## **Security Reminder**
 If you will saving this project to your Github, confirm you have a `.gitignore` file in the root of your folder.
 
-# Security: Never upload your database credentials
+### Security: Never upload your database credentials
 .env
 
-# Environment: Keep the workspace clean
+### Environment: Keep the workspace clean
 SandboxEnvironment/
 .venv/
 env/
 venv/
 
-# Python: Ignore temporary cache files
+### Python: Ignore temporary cache files
 __pycache__/
 *.py[cod]
 *$py.class
