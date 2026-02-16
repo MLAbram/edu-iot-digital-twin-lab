@@ -93,9 +93,8 @@ Open this folder in Visual Studio Code or your favorite programming IDE.
 
 Create your first sub-folders: Week-0, Week-1, and so on.
 
-[!TIP]
-Why this matters: Having a dedicated local directory allows you to use the VS Code Source Control tab to "Commit" and "Push" your work to your own GitHub profile. This builds your professional portfolio as you learn!
-
+>[!TIP]
+>Why this matters: Having a dedicated local directory allows you to use the VS Code Source Control tab to "Commit" and "Push" your work to your own GitHub profile. This builds your professional portfolio as you learn!
 
 ---
 
@@ -130,7 +129,7 @@ If both return a version number, you are ready for Week 1!
 
 
 
-# Week 0: Setting the Foundation 🧱
+## Week 0: 🧱 Setting the Foundation
 
 Before we can build a **Digital Twin**, we need the right tools in our professional toolbox. Follow these steps to prepare your local environment for the weeks ahead.
 
