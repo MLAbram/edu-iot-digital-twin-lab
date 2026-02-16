@@ -23,13 +23,13 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 ---
 
-## Step 1. Browser Simulator (All OS)
+## 💻 Step 1. Browser Simulator (All OS)
 * **Action:** Create a free account at [Wokwi.com](https://wokwi.com).
 * **Note:** This works entirely in the browser (Chrome, Edge, or Firefox recommended). No installation is required.
 
 ---
 
-## Step 2. Python 3.x Installation
+## 🐍 Step 2. Python 3.x Installation
 
 ### 🪟 Windows
 1. Download the installer from [python.org](https://www.python.org/downloads/).
@@ -48,7 +48,7 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 ---
 
-## Step 3. PostgreSQL & pgAdmin 4
+## 🐘 Step 3. PostgreSQL & pgAdmin 4
 
 ### 🪟 Windows
 1. Download the installer from [EnterpriseDB](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads).
@@ -64,7 +64,7 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 ---
 
-## Step 4. Visual Studio Code (All OS)
+## 🛠️ Step 4. Visual Studio Code (All OS)
 1. Download the correct version for your OS from [code.visualstudio.com](https://code.visualstudio.com/).
 2. Open VS Code, go to the **Extensions** view (Ctrl+Shift+X), and install:
    * **Python** (by Microsoft)
