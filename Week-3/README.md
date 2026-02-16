@@ -27,9 +27,16 @@ CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
 ```
 
 ## 📦 Step 2: Environment & Libraries
-To keep our project secure and functional, we need to install the necessary tools. You should never save sensitive values in your code that could be open to the public when saving on GitHub, for example. We will use python-dotenv to read the .env file where you will have this sensitive data.
-
-From the terminal console, type the following command to install paho-mqtt, psycopg2, and python-dotenv:
+> [!TIP]
+> **ERROR** If you receive error: externally-managed-environment? This error is actually a "safety feature" of modern Linux distributions. It prevents pip from accidentally breaking the system-level Python that your OS relies on to run. The "Best Practice" solution here is to use a Virtual Environment (venv). This creates an isolated "bubble" specifically for your Week 3 project, so you can install paho-mqtt and psycopg2 without touching the rest of your system.
+>
+>To keep our project secure and functional, we need to install the necessary tools. You should never save sensitive values in your code that could be open to the public when saving on GitHub, for example. We will use python-dotenv to read the .env file where you will have this sensitive data.
+>
+>From the terminal console, type the following command to install paho-mqtt, psycopg2, and python-dotenv:
+>
+> ```bash
+sudo apt install python3-venv
+>```
 
 > pip install paho-mqtt psycopg2 python-dotenv
 
