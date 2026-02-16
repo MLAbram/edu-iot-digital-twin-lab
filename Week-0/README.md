@@ -99,8 +99,22 @@ Why this matters: Having a dedicated local directory allows you to use the VS Co
 
 ---
 
-### **Reminder**
+### **Security Reminder**
 If you will saving this project to your Github, confirm you have a `.gitignore` file in the root of your folder.
+
+# Security: Never upload your database credentials
+.env
+
+# Environment: Keep the workspace clean
+SandboxEnvironment/
+.venv/
+env/
+venv/
+
+# Python: Ignore temporary cache files
+__pycache__/
+*.py[cod]
+*$py.class
 
 ---
 
