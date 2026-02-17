@@ -26,23 +26,23 @@ Create a Gmail App Password (or use an SMTP service like SendGrid).
 
 Add these to your .env file:
 
-```Plaintext
+```bash
 EMAIL_SENDER=your_email@gmail.com
 EMAIL_PASSWORD=your_app_password
 EMAIL_RECEIVER=your_personal_email@gmail.com
 ```
 
 ## 🐍 Step 3: The Analytics Script (analytics.py)
-This script will "interrogate" your database and act as your 24/7 watchman. This script is designed to be the "Intelligence Engine" of the project. It doesn't just sit and wait for messages; it actively queries the database to see what has happened over time and makes decisions based on that history.
+This script acts as your System Auditor. Unlike the Bridge (which is a passive listener), this script is "On-Demand"—it actively interrogates your database to analyze past performance and check if any critical thresholds were crossed while you weren't looking.
 
 **Key Features of the Code:**
 * **Aggregate Reporting:** Uses SQL to find the Min, Max, and Avg temperature.
-* **Threshold Monitoring:** Checks for any record > 90°F.
+* **Threshold Monitoring:** Checks for any record > 70°C.
 * **Email Dispatch:** Automatically sends an alert if the threshold is breached.
 
 **How to Validate this Script:**
 * **[HiveMQ Web Client](https://www.hivemq.com/demos/websocket-client/):** Ensure your client is running. 
-* **[Wokwi](https://wokwi.com/):** Ensure your simulation is running and you have sent at least one "hot" reading (>90°F) via the slider.
+* **[Wokwi](https://wokwi.com/):** Ensure your simulation is running and you have sent at least one "hot" reading (>70°C) via the slider.
 * **.env File:** Ensure your EMAIL_SENDER and EMAIL_PASSWORD (App Password) are correctly set.
 * **Run it:** Execute python analytics.py in your SandboxEnvironment.
 
@@ -59,7 +59,7 @@ Your script uses a SQL `INTERVAL` to look at the last 24 hours of data. This pro
 ## 🌟 BONUS #1: Visualizing the Twin 📈
 Inside the Bonus/ folder, you will find a script using Plotly. This turns your database into a high-end interactive graph that you can view in your browser.
 
-### 🌟 BONUS #2: The 24/7 Watchman 🛡️
+## 🌟 BONUS #2: The 24/7 Watchman 🛡️
 Want your analytics script to run automatically like the bridge? You can turn it into a persistent monitor by wrapping your main execution in a loop.
 
 1. Import the `time` library at the top of `analytics.py`.
@@ -71,3 +71,13 @@ if __name__ == "__main__":
         run_analytics()
         print("😴 Sleeping for 1 minute before next check...")
         time.sleep(60) # Checks the database every 60 seconds
+```
+
+---
+
+## 💡 Why This Matters
+**Actionable Intelligence**
+In a real-world startup, you can't afford to hire someone to watch a screen 24/7. By building this "Intelligence Engine," you have created a system that only bothers you when there is an actual problem.
+
+**Data Governance**
+Using SQL aggregates (AVG, MIN, MAX) directly in the database is far more efficient than pulling all the data into Python. This is how you build systems that can scale to millions of rows without slowing down.
