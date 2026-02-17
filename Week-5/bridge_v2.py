@@ -10,7 +10,7 @@ load_dotenv()
 
 # --- CONSTANTS: These are our "Address" settings for the MQTT Broker ---
 MQTT_BROKER = "broker.hivemq.com"
-MQTT_TOPIC = "curriculum/iot/smart_data"  # This must match the topic used in the ESP32 code
+MQTT_TOPIC = "curriculum/iot/temp"  # This must match the topic used in the ESP32 code
 
 def get_db_connection():
     """

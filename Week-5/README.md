@@ -126,7 +126,7 @@ void loop() {
     serializeJson(doc, buffer);
     
     // 5. Publish that text to our specific topic
-    client.publish("curriculum/iot/smart_data", buffer);
+    client.publish("curriculum/iot/temp", buffer);
     
     // 6. Update our memory: set lastTemp to the value we just sent
     lastTemp = currentTemp;
@@ -144,22 +144,27 @@ void loop() {
 ## 🚦 Step 3: Validation & Execution Sequence
 To successfully test the "Smart Data" pipeline, you must follow this specific order. This ensures the "landing pad" is ready before the data starts flying.
 
-1. The Database (The Foundation)
+1. The "Sanity Check" (Optional but Recommended)
+Before running your Python scripts, open the HiveMQ Web Client.
+* **Topic:** curriculum/iot/temp
+* **Why:** This confirms the "Smart Data" is actually hitting the cloud before you try to process it with Python.
+
+2. The Database (The Foundation)
 * **Action:** Run the SQL script from Step 1 in pgAdmin.
 * **Verification:** Refresh your tables list in the curriculum_iot_digital_twin_lab schema. You should see smart_sensor_data.
 
-2. The Smart Bridge (The Courier)
+3. The Smart Bridge (The Courier)
 * **Action:** Open a terminal in your Week-5 folder and run:
 ```bash
 python bridge_v2.py
 ```
 * **Verification:** You should see: 🚀 Smart Bridge active. Listening for JSON on: curriculum/iot/smart_data.
 
-3. The Wokwi Simulation (The Source)
+4. The Wokwi Simulation (The Source)
 * **Action:** Start your Wokwi simulation.
 * **Verification:** Check the Wokwi Serial Monitor. It should show Connected to MQTT.
 
-4. The "Delta" Test (The Proof of Logic)
+5. The "Delta" Test (The Proof of Logic)
 This is where we verify the Report by Exception logic:
 * **Test A (No Change):** Leave the temperature slider alone. The Python terminal should remain silent. This confirms we are saving bandwidth!
 * **Test B (The Change):** Move the slider by at least 1°C.
