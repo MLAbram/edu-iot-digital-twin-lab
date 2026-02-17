@@ -56,13 +56,18 @@ Your script uses a SQL `INTERVAL` to look at the last 24 hours of data. This pro
 
 ---
 
-## 🌟 BONUS: Visualizing the Twin 📈
+## 🌟 BONUS #1: Visualizing the Twin 📈
 Inside the Bonus/ folder, you will find a script using Plotly. This turns your database into a high-end interactive graph that you can view in your browser.
 
+### 🌟 BONUS #2: The 24/7 Watchman 🛡️
+Want your analytics script to run automatically like the bridge? You can turn it into a persistent monitor by wrapping your main execution in a loop.
 
----
+1. Import the `time` library at the top of `analytics.py`.
+2. Update the bottom of your script to look like this:
 
-### **A Quick Note for the Professor**
-Teaching students about **SMTP (Simple Mail Transfer Protocol)** and **App Passwords** is a vital security lesson. It reinforces why we use `.env` files—because you *never* want your email password sitting in a public GitHub repository.
-
-**How does this structure sound? If you’re ready, I can draft the full `analytics.py` script so you can validate the email alert yourself!**
+```python
+if __name__ == "__main__":
+    while True:
+        run_analytics()
+        print("😴 Sleeping for 1 minute before next check...")
+        time.sleep(60) # Checks the database every 60 seconds
