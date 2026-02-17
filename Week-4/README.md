@@ -41,9 +41,9 @@ This script will "interrogate" your database and act as your 24/7 watchman. This
 * **Email Dispatch:** Automatically sends an alert if the threshold is breached.
 
 **How to Validate this Script:**
-* Wokwi: Ensure your simulation is running and you have sent at least one "hot" reading (>90°F) via the slider.
-* .env File: Ensure your EMAIL_SENDER and EMAIL_PASSWORD (App Password) are correctly set.
-* Run it: Execute python analytics.py in your SandboxEnvironment.
+* **Wokwi:** Ensure your simulation is running and you have sent at least one "hot" reading (>90°F) via the slider.
+* **.env File:** Ensure your EMAIL_SENDER and EMAIL_PASSWORD (App Password) are correctly set.
+* **Run it:** Execute python analytics.py in your SandboxEnvironment.
 
 ## 📊 Step 4: The "Summary" Logic
 Your script uses a SQL `INTERVAL` to look at the last 24 hours of data. This provides a professional "Daily Status Report."
