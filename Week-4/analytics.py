@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # --- CONFIGURATION ---
-THRESHOLD_TEMP = 90.0  # Alert if temp is above this
+THRESHOLD_TEMP = 70.0  # Alert if temp is above this
 
 def get_db_connection():
     return psycopg2.connect(
@@ -21,8 +21,8 @@ def get_db_connection():
 
 def send_email_alert(temp):
     msg = EmailMessage()
-    msg.set_content(f"🚨 ALERT: Your IoT Digital Twin has detected a high temperature of {temp}°F!")
-    msg['Subject'] = f"CRITICAL HEAT ALERT: {temp}°F"
+    msg.set_content(f"🚨 ALERT: Your IoT Digital Twin has detected a high temperature of {temp}°C!")
+    msg['Subject'] = f"CRITICAL HEAT ALERT: {temp}°C"
     msg['From'] = os.getenv("EMAIL_SENDER")
     msg['To'] = os.getenv("EMAIL_RECEIVER")
 
@@ -60,9 +60,9 @@ def run_analytics():
 
         print("\n--- 📊 24-HOUR STATUS REPORT ---")
         print(f"Total Readings: {count}")
-        print(f"Average Temp:   {avg_t}°F")
-        print(f"Maximum Temp:   {max_t}°F")
-        print(f"Minimum Temp:   {min_t}°F")
+        print(f"Average Temp:   {avg_t}°C")
+        print(f"Maximum Temp:   {max_t}°C")
+        print(f"Minimum Temp:   {min_t}°C")
         print("--------------------------------\n")
 
         # 2. THRESHOLD CHECK (The "Entrepreneur" Alert)
@@ -71,10 +71,10 @@ def run_analytics():
         latest_temp = cur.fetchone()[0]
 
         if latest_temp > THRESHOLD_TEMP:
-            print(f"⚠️  WARNING: High temperature detected! ({latest_temp}°F)")
+            print(f"⚠️  WARNING: High temperature detected! ({latest_temp}°C)")
             send_email_alert(latest_temp)
         else:
-            print(f"✅ Status: Normal ({latest_temp}°F)")
+            print(f"✅ Status: Normal ({latest_temp}°C)")
 
         cur.close()
         conn.close()
