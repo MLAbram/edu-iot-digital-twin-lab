@@ -78,4 +78,5 @@ client.connect(MQTT_BROKER, 1883, 60)
 client.subscribe(MQTT_TOPIC)
 
 print(f"🚀 Week 5 Bridge & Alerter is LIVE on {MQTT_TOPIC}")
+print("Press Ctrl+C to stop the bridge.")
 client.loop_forever()
