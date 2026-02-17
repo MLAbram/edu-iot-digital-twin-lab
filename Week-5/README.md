@@ -169,8 +169,11 @@ python bridge_v2.py
 
 5. The "Delta" Test (The Proof of Logic)
 This is where we verify the Report by Exception logic:
-* **Test A (No Change):** Leave the temperature slider alone. The Python terminal should remain silent. This confirms we are saving bandwidth!
-* **Test B (The Change):** Move the slider by at least 1°C.
+* **The "Safe" Zone:** Set the Wokwi slider below 35°C.
+* **Expectation:** Terminal says "Stored in Database." No email sent. LED is OFF.
+* **The "Alarm" Zone:** Set the Wokwi slider above 35°C.
+* **Expectation:** LED turns ON instantly. Terminal says "Sending email..." and "Stored in Database."
+* **Check your inbox!**
 * **Verification:** The Python terminal should immediately display: 📥 Received JSON: {'temp': ..., 'hum': ..., 'uptime': ...} followed by a success message.
 
 ## 🛠️ Step 4: Troubleshooting Checklist
