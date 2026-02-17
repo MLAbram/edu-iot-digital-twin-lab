@@ -81,6 +81,11 @@ else:
     st.warning("No data found in the 'smart_sensor_data' table. Start your bridge and move the Wokwi slider!")
 
 # --- 4. THE AUTO-REFRESH (Advanced Bonus) ---
-# This tiny line tells Streamlit to rerun the script every 10 seconds automatically
-# st.empty() 
-# st.runtime.legacy_caching.clear_cache() # Optional for older versions
+# This block tells the browser: "Wait 10 seconds, then run this whole script again."
+import time
+
+# We add a small countdown so the user knows when the next refresh is coming
+st.divider()
+st.write("⏱️ Next auto-refresh in 10 seconds...")
+time.sleep(10)
+st.rerun()
