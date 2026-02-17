@@ -24,13 +24,62 @@ CREATE TABLE curriculum_iot_digital_twin_lab.smart_sensor_data (
 ```
 
 ## ⚙️ Step 2: The "Optimized" Wokwi C++ Logic
+
+**Clone Work**
+1. Open curriculum-iot-digital-twin-celsius-lab-week-2. 
+2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-5.
+
+**Add to Library: ArduinoJson**
 To send structured data, you must add the ArduinoJson library in the Wokwi Library Manager. We are also implementing a "Delta" check: the ESP32 will only transmit if the temperature changes by $\pm0.5^\circ\text{C}$.
 
-The logic change looks like this:
+**sketch.ino Updates**
+Replace the code in your sketch.ino with what is below:
 
-```C++
+```cpp
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include "DHTesp.h"
+#include <ArduinoJson.h>
+
+// WiFi and MQTT Settings
+const char* ssid = "Wokwi-GUEST";
+const char* password = "";
+const char* mqtt_server = "broker.hivemq.com";
 float lastTemp = 0;
 float threshold = 0.5;
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+DHTesp dhtSensor;
+
+void setup() {
+  Serial.begin(115200);
+  setup_wifi();
+  client.setServer(mqtt_server, 1883);
+  dhtSensor.setup(15, DHTesp::DHT22);
+}
+
+void setup_wifi() {
+  delay(10);
+  Serial.println("Connecting to WiFi...");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi Connected!");
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    if (client.connect("ESP32_Student_Client")) {
+      Serial.println("connected");
+    } else {
+      delay(5000);
+    }
+  }
+}
 
 void loop() {
   float currentTemp = dht.readTemperature();

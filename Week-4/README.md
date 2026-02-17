@@ -54,6 +54,35 @@ Your script uses a SQL `INTERVAL` to look at the last 24 hours of data. This pro
 > Find the line: `WHERE aud_insert_ts > NOW() - INTERVAL '24 hours';`
 > Try changing it to `'1 hour'` or even `'5 minutes'` to see how the averages change based on your most recent "Slider" movements!
 
+## 🚦 Step 5: Validation & Execution Sequence
+To successfully test the "Smart Data" pipeline, you must follow this specific order. This ensures the "landing pad" is ready before the data starts flying.
+
+1. The Database (The Foundation)
+* **Action:** Run the SQL script from Step 1 in pgAdmin.
+* **Verification:** Refresh your tables list in the curriculum_iot_digital_twin_lab schema. You should see smart_sensor_data.
+
+2. The Smart Bridge (The Courier)
+* **Action:** Open a terminal in your Week-5 folder and run:
+```bash
+python bridge_v2.py
+```
+* **Verification:** You should see: 🚀 Smart Bridge active. Listening for JSON on: curriculum/iot/smart_data.
+
+3. The Wokwi Simulation (The Source)
+* **Action:** Start your Wokwi simulation.
+* **Verification:** Check the Wokwi Serial Monitor. It should show Connected to MQTT.
+
+4. The "Delta" Test (The Proof of Logic)
+This is where we verify the Report by Exception logic:
+* **Test A (No Change):** Leave the temperature slider alone. The Python terminal should remain silent. This confirms we are saving bandwidth!
+* **Test B (The Change):** Move the slider by at least 1°C.
+* **Verification:** The Python terminal should immediately display: 📥 Received JSON: {'temp': ..., 'hum': ..., 'uptime': ...} followed by a success message.
+
+## 🛠️ Step 6: Troubleshooting Checklist
+* **No data appearing?** Ensure the MQTT_TOPIC in bridge_v2.py exactly matches the topic in your sketch.ino.
+* **JSON Error?** Make sure you added the ArduinoJson library in the Wokwi Library Manager tab.
+* **Database Error?** Confirm your .env file is present in the Week-5 folder.
+
 ---
 
 ## 🌟 BONUS #1: Visualizing the Twin 📈
