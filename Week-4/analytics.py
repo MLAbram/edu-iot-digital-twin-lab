@@ -21,13 +21,13 @@ def get_db_connection():
 
 def send_email_alert(temp):
     msg = EmailMessage()
+    # Units restored to °C per your design
     msg.set_content(f"🚨 ALERT: Your IoT Digital Twin has detected a high temperature of {temp}°C!")
     msg['Subject'] = f"CRITICAL HEAT ALERT: {temp}°C"
     msg['From'] = os.getenv("EMAIL_SENDER")
     msg['To'] = os.getenv("EMAIL_RECEIVER")
 
     try:
-        # Using Gmail settings as a standard example
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(os.getenv("EMAIL_SENDER"), os.getenv("EMAIL_PASSWORD"))
             smtp.send_message(msg)
@@ -40,7 +40,7 @@ def run_analytics():
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # 1. FETCH AGGREGATES (The "Professor" Report)
+        # 1. FETCH AGGREGATES
         query_stats = """
             SELECT 
                 ROUND(AVG(temperature)::numeric, 2) as avg_temp,
@@ -52,29 +52,29 @@ def run_analytics():
         """
         cur.execute(query_stats)
         row = cur.fetchone()
-        if row and row[3] > 0: # row[3] is the 'count'
+        
+        # Logic fix: ensures the script doesn't crash if the time window is empty
+        if row and row[3] > 0: 
             avg_t, max_t, min_t, count = row
-            # ... print your reports ...
+            
+            print("\n--- 📊 24-HOUR STATUS REPORT ---")
+            print(f"Total Readings: {count}")
+            print(f"Average Temp:   {avg_t}°C")
+            print(f"Maximum Temp:   {max_t}°C")
+            print(f"Minimum Temp:   {min_t}°C")
+            print("--------------------------------\n")
+
+            # 2. THRESHOLD CHECK
+            cur.execute("SELECT temperature FROM curriculum_iot_digital_twin_lab.sensor_data ORDER BY aud_insert_ts DESC LIMIT 1;")
+            latest_temp = cur.fetchone()[0]
+
+            if latest_temp > THRESHOLD_TEMP:
+                print(f"⚠️  WARNING: High temperature detected! ({latest_temp}°C)")
+                send_email_alert(latest_temp)
+            else:
+                print(f"✅ Status: Normal ({latest_temp}°C)")
         else:
             print("📭 No data found in the selected time window. Move the Wokwi slider and try again!")
-
-        print("\n--- 📊 24-HOUR STATUS REPORT ---")
-        print(f"Total Readings: {count}")
-        print(f"Average Temp:   {avg_t}°C")
-        print(f"Maximum Temp:   {max_t}°C")
-        print(f"Minimum Temp:   {min_t}°C")
-        print("--------------------------------\n")
-
-        # 2. THRESHOLD CHECK (The "Entrepreneur" Alert)
-        # Check the most recent reading
-        cur.execute("SELECT temperature FROM curriculum_iot_digital_twin_lab.sensor_data ORDER BY aud_insert_ts DESC LIMIT 1;")
-        latest_temp = cur.fetchone()[0]
-
-        if latest_temp > THRESHOLD_TEMP:
-            print(f"⚠️  WARNING: High temperature detected! ({latest_temp}°C)")
-            send_email_alert(latest_temp)
-        else:
-            print(f"✅ Status: Normal ({latest_temp}°C)")
 
         cur.close()
         conn.close()
