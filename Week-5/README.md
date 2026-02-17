@@ -46,6 +46,8 @@ Replace the code in your sketch.ino with what is below:
 const char* ssid = "Wokwi-GUEST";           // The name of our virtual WiFi
 const char* password = "";                  // No password needed for Wokwi
 const char* mqtt_server = "broker.hivemq.com"; // Our public "Post Office" (Broker)
+const int LED_PIN = 2; // Most ESP32s have a built-in LED on Pin 2
+const float ALARM_THRESHOLD = 35.0; // --- ALARM SETTING: At what temperature should the Red LED turn on? ---
 
 // --- MEMORY: Variables that help the ESP32 "remember" things ---
 float lastTemp = 0;      // We store the last temperature here to compare with the next one
@@ -68,6 +70,9 @@ void setup() {
   
   // Connect the sensor to Pin 15 on the ESP32 chip
   dht.setup(15, DHTesp::DHT22);
+
+  // Tell the ESP32 that this pin is an OUTPUT (it sends electricity OUT to light the LED)
+  pinMode(LED_PIN, OUTPUT);
 }
 
 void setup_wifi() {
@@ -102,41 +107,39 @@ void reconnect() {
 }
 
 void loop() {
-  // If we lose connection to the broker, run the reconnect function
   if (!client.connected()) {
     reconnect();
   }
-  client.loop(); // Keep the MQTT connection alive
+  client.loop();
 
-  // 1. Read the current temperature from the sensor
   float currentTemp = dht.getTemperature();
   
-  // 2. "Report by Exception" Logic:
-  // We only do work if the difference (abs = absolute value) is bigger than our threshold.
-  if (abs(currentTemp - lastTemp) >= threshold) {
-    
-    // 3. Create a JSON "Envelope" (called a document)
-    StaticJsonDocument<200> doc;
-    doc["temp"] = currentTemp;            // Put the temp in the envelope
-    doc["hum"] = dht.getHumidity();       // Put the humidity in the envelope
-    doc["uptime"] = millis() / 1000;      // Put the "seconds since turned on" in too
+  // --- RESTORED: Local Alarm Logic ---
+  // The LED still acts as a local "Warning Light" regardless of the JSON data
+  // --- Local Alarm Logic using our Setting ---
+  if (currentTemp > ALARM_THRESHOLD) { 
+    digitalWrite(LED_PIN, HIGH); // Alarm ON
+    Serial.println("🚨 LOCAL ALARM: High Temperature Detected!");
+  } else {
+    digitalWrite(LED_PIN, LOW);  // Alarm OFF
+  }
 
-    // 4. Convert that envelope into a single line of text (a string)
+  // --- "Report by Exception" JSON Logic ---
+  if (abs(currentTemp - lastTemp) >= threshold) {
+    StaticJsonDocument<200> doc;
+    doc["temp"] = currentTemp;
+    doc["hum"] = dht.getHumidity();
+    doc["uptime"] = millis() / 1000;
+
     char buffer[256];
     serializeJson(doc, buffer);
     
-    // 5. Publish that text to our specific topic
     client.publish("curriculum/iot/temp", buffer);
-    
-    // 6. Update our memory: set lastTemp to the value we just sent
     lastTemp = currentTemp;
     
     Serial.println("📡 Change detected. JSON payload sent!");
-    Serial.print("Payload: ");
-    Serial.println(buffer);
   }
 
-  // Wait 2 seconds before checking again (prevents the ESP32 from working too hard)
   delay(2000); 
 }
 ```
