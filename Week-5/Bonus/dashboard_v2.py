@@ -1,9 +1,15 @@
 import streamlit as st
 import pandas as pd
 import psycopg2
+from sqlalchemy import create_engine  # <--- Added for 2026 Pandas Compliance
 import json
 import os
+import time
 from dotenv import load_dotenv
+
+# --- TERMINAL INSTRUCTION ---
+print("\n🚀 Dashboard Server is running...")
+print("👉 Press Ctrl+C in this terminal to stop the Dashboard.\n")
 
 # --- 1. SETUP & PAGE CONFIG ---
 load_dotenv()
@@ -15,30 +21,24 @@ st.markdown("This dashboard pulls live **JSONB** payloads from PostgreSQL and fl
 # --- 2. DATABASE CONNECTION ---
 def get_data():
     try:
-        conn = psycopg2.connect(
-            dbname=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASS"),
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT")
-        )
+        # Create a SQLAlchemy engine to satisfy modern Pandas requirements
+        db_url = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+        engine = create_engine(db_url)
         
-        # We query the 'payload' column and the timestamp
         query = """
             SELECT payload, aud_insert_ts 
             FROM curriculum_iot_digital_twin_lab.smart_sensor_data 
             ORDER BY aud_insert_ts DESC 
             LIMIT 50
         """
-        # Read into a dataframe
-        df_raw = pd.read_sql_query(query, conn)
-        conn.close()
+        
+        # FIXED: Use the 'engine' instead of the raw 'conn'
+        df_raw = pd.read_sql_query(query, engine)
 
         if df_raw.empty:
             return pd.DataFrame()
 
-        # MAGIC STEP: Flatten the JSON 'payload' column into individual columns (temp, hum, uptime)
-        # This turns {"temp": 25} into a column named 'temp'
+        # MAGIC STEP: Flatten the JSON 'payload' column into individual columns
         df_payload = pd.json_normalize(df_raw['payload'])
         
         # Combine the new columns with the timestamp
@@ -55,6 +55,9 @@ with st.sidebar:
     st.header("Dashboard Controls")
     refresh = st.button("🔄 Refresh Data")
     st.info("This dashboard reads directly from the 'smart_sensor_data' table.")
+    st.markdown("---")
+    st.write("🛑 **To stop the server:**")
+    st.write("Go to your terminal and press **Ctrl+C**.")
 
 # Fetch data
 df = get_data()
@@ -65,26 +68,27 @@ if not df.empty:
     col1, col2, col3 = st.columns(3)
     col1.metric("Current Temp", f"{latest['temp']}°C")
     col2.metric("Humidity", f"{latest['hum']}%")
-    col3.metric("System Uptime", f"{latest['uptime']}s")
+    
+    # Check if 'uptime' exists in the JSON payload before displaying
+    if 'uptime' in latest:
+        col3.metric("System Uptime", f"{latest['uptime']}s")
+    else:
+        col3.metric("System Uptime", "N/A")
 
     # B. Visualizing the Trend
     st.subheader("Temperature Trend")
-    # We set the index to the timestamp so the chart plots correctly over time
     chart_data = df.set_index('aud_insert_ts')[['temp']]
     st.line_chart(chart_data)
 
     # C. Raw Data Table
     st.subheader("Latest JSON Payloads")
-    st.dataframe(df, use_container_width=True)
+    # FIXED: Replaced use_container_width with width='stretch'
+    st.dataframe(df, width='stretch')
 
 else:
-    st.warning("No data found in the 'smart_sensor_data' table. Start your bridge and move the Wokwi slider!")
+    st.warning("No data found in the table. Start your bridge and move the Wokwi slider!")
 
-# --- 4. THE AUTO-REFRESH (Advanced Bonus) ---
-# This block tells the browser: "Wait 10 seconds, then run this whole script again."
-import time
-
-# We add a small countdown so the user knows when the next refresh is coming
+# --- 4. THE AUTO-REFRESH ---
 st.divider()
 st.write("⏱️ Next auto-refresh in 10 seconds...")
 time.sleep(10)
