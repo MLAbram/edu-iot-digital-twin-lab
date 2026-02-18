@@ -1,5 +1,4 @@
 # 🌟 Week 4 Bonus #1: Visualizing the Digital Twin 📊
-
 Welcome to the "Dashboard" phase! While logs and email alerts are vital for monitoring, **Visualization** is how we communicate complex data trends at a glance. 
 
 In this bonus lab, you will transform your PostgreSQL database into an interactive, browser-based line chart.
@@ -44,7 +43,3 @@ Your default web browser should automatically open a new tab displaying your Tem
 
 ## 🏆 Graduation Check
 If you see a line graph with a red "Critical Threshold" line at 70°C, you have successfully completed the entire Week 4 curriculum path! You have built a pipeline that senses, stores, alerts, and visualizes.
-
----
-
-Next Step: Can you find a way to make the graph update automatically without re-running the script? (Hint: See Bonus #2!)
