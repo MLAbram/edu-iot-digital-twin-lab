@@ -2,8 +2,9 @@
 To achieve Bi-Directional Control, we have to flip the script. Until now, the ESP32 has been a "Talker" (Publisher) and the Bridge has been a "Listener" (Subscriber). Now, the ESP32 needs to do both.
 
 ## ⚖️ Step 1: Clone Wokwi Work
-1. Open curriculum-iot-digital-twin-celsius-lab-week-3. 
-2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
+1. **Website:** [Wokwi](https://wokwi.com/)
+2. Open curriculum-iot-digital-twin-celsius-lab-week-3. 
+3. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
 
 ## Step 2: The Real-World Scenario
 We’ll frame this as the "Remote Override" system.
