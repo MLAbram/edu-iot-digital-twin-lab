@@ -12,7 +12,7 @@ load_dotenv()
 
 # --- SETTINGS ---
 MQTT_BROKER = "broker.hivemq.com"
-MQTT_TOPIC = "curriculum/iot/commands/student01" 
+MQTT_TOPIC = "curriculum/iot/temp/student01" 
 ALARM_THRESHOLD = 30.0  # Matches our ESP32 LED setting
 
 def send_email_alert(temp):

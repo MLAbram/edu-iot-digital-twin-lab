@@ -1,23 +1,31 @@
-## Week 6: The "Command & Control" Logic
-To achieve Bi-Directional Control, we have to flip the script. Until now, the ESP32 has been a "Talker" (Publisher) and the Bridge has been a "Listener" (Subscriber). Now, the ESP32 needs to do both.
+## 🛰️ Week 6: The "Command & Control" Capstone
+To achieve Bi-Directional Control, we have to flip the script. Until now, the ESP32 has been a "Talker" (Publisher) and the Bridge has been a "Listener" (Subscriber). Now, your Digital Twin will do both.
+
+---
 
 ## ⚖️ Step 1: Clone Wokwi Work
 > [!TIP]
-> **Pro-Tip:** To keep this guide open while watching the videos, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+> Pro-Tip: To keep this guide open while watching the videos, **Right-Click** the links below and select "**Open link in new tab**" (or use Ctrl/Cmd + Click).
 
 1. **Website:** [Wokwi](https://wokwi.com/)
-2. Open curriculum-iot-digital-twin-celsius-lab-week-5. 
-3. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
+2. Open your **Week 5** project (curriculum-iot-digital-twin-celsius-lab-week-5).
+3. Make a copy by clicking on the **down arrow** next to the grayed-out Save button. (If your Save button is red, click to save first).
+4. Select **Save a copy** and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
 
-## Step 2: The Real-World Scenario
+---
+
+## 🏢 Step 2: The Real-World Scenario
 We’ll frame this as the "Remote Override" system.
 
-The Problem: Your "Digital Twin" detects a high-temp alarm. You’ve checked your dashboard and realize it’s a sensor glitch or a controlled burn. You need to "silence" the alarm remotely so the red LED stops flashing on-site.
+* **The Problem:** Your "Digital Twin" detects a high-temp alarm. You’ve checked your dashboard and realize it’s a sensor glitch or a controlled maintenance event.
+* **The Solution:** You need to "silence" the alarm remotely so the red LED stops flashing on-site without physically traveling to the hardware.
 
-## Step 3: The ESP32 "Listener" Update
-We need to add a Callback Function to your sketch.ino. This is like giving the ESP32 a "mailing address" where it can receive instructions.
+---
 
-Here is the updated code. Notice the new COMMAND_TOPIC and the logic inside the callback and reconnect functions. Here is the logic to add to your Week 6 sketch.ino:
+## 📡 Step 3: The ESP32 "Listener" Update
+We need to add a **Callback** Function to your sketch.ino. This is like giving the ESP32 a "mailing address" where it can receive instructions from the web.
+
+Update your Week 6 sketch.ino with the following logic:
 ```cpp
 // --- LIBRARIES ---
 #include <WiFi.h>
@@ -31,7 +39,6 @@ const char* password = "";
 const char* mqtt_server = "broker.hivemq.com";
 
 // UNIQUE NAMESPACE: In the real world, this prevents "Topic Hijacking"
-// Change 'student01' to your unique name or ID
 const char* DATA_TOPIC = "curriculum/iot/temp/student01";
 const char* COMMAND_TOPIC = "curriculum/iot/commands/student01";
 
@@ -39,7 +46,7 @@ const int LED_PIN = 2;
 float lastTemp = 0;
 float threshold = 0.5;
 float ALARM_THRESHOLD = 30.0;
-bool remoteOverride = false; // New flag to track remote silences
+bool remoteOverride = false;  // New flag to track remote silences
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -65,7 +72,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.println("🛑 REMOTE OVERRIDE: Alarm silenced by Dashboard.");
   }
   
-  // LOGIC: Re-enable the alarm system
   if (message == "ENABLE_ALARM") {
     remoteOverride = false;
     Serial.println("🟢 ALARM SYSTEM: Re-enabled.");
@@ -76,13 +82,11 @@ void setup() {
   Serial.begin(115200);
   pinMode(LED_PIN, OUTPUT);
   setup_wifi();
-  
   client.setServer(mqtt_server, 1883);
   
   // --- 2. THE LISTENER SETUP ---
   // We must tell the MQTT client which function to run when a message arrives
   client.setCallback(callback);
-  
   dht.setup(15, DHTesp::DHT22);
 }
 
@@ -103,7 +107,6 @@ void reconnect() {
     // We give the client a unique name based on our topic for security
     if (client.connect("ESP32_Student_01")) {
       Serial.println("connected");
-      
       // --- 3. THE SUBSCRIPTION ---
       // Once connected, we MUST subscribe to our command topic to hear the dashboard
       client.subscribe(COMMAND_TOPIC);
@@ -118,7 +121,7 @@ void loop() {
   if (!client.connected()) {
     reconnect();
   }
-  client.loop(); // This line is CRITICAL—it checks for incoming callback messages!
+  client.loop(); // CRITICAL: This checks for incoming messages!
 
   float currentTemp = dht.getTemperature();
   
@@ -140,39 +143,30 @@ void loop() {
 
     char buffer[256];
     serializeJson(doc, buffer);
-    
     client.publish(DATA_TOPIC, buffer);
     lastTemp = currentTemp;
     Serial.println("📡 Smart Data Sent.");
   }
-
   delay(2000); 
 }
 ```
 
----
-
-**The "Security & Logic" Highlights:**
-* **Unique Namespaces:** Using student01 in the topic path is the first step toward Multi-Tenancy (supporting many users on one broker).
-* **The remoteOverride Flag:** This is a professional way to handle state. It prevents the loop() from immediately turning the LED back on as soon as you turn it off.
-* **client.loop():** I’ve added a comment here because many students forget this. Without this line, the callback() will never trigger.
-
-**The "Out-of-the-Box" Challenge:**
-* _"We are using simple text like 'RESET_ALARM' for our commands. How could we use JSON for commands to change the ALARM_THRESHOLD variable remotely?"_
+##💡 Logic Highlights
+Unique Namespaces: Using /student01 in the topic path is the first step toward Multi-Tenancy.
+* **The remoteOverride Flag:** This state-management approach prevents the loop() from immediately turning the LED back on after a reset.
+* **client.loop():** Without this line, the callback() will never trigger. It is the "heartbeat" of your inbound commands.
 
 ---
 
 ## 🎮 Step 4: Building the Control Center (Bi-Directional)
-In this step, we upgrade our Streamlit Dashboard to include a "Remote Reset" button. This button will send a message backward through the MQTT broker to your ESP32.
+We now upgrade our Streamlit Dashboard to include "Remote Actuation" buttons.
 
-The "Control" Code for dashboard_v3.py
 This block of code was added to your Streamlit script. This creates a button that, when clicked, publishes the RESET_ALARM command to your unique namespace.
 ```python
-import paho.mqtt.client as mqtt  # <--- ADDED
-from paho.mqtt.enums import CallbackAPIVersion # <--- ADDED
+import paho.mqtt.client as mqtt 
+from paho.mqtt.enums import CallbackAPIVersion 
 
 # --- NEW: MQTT SETUP FOR COMMANDS ---
-# This initializes the connection so the buttons can "Publish"
 client = mqtt.Client(CallbackAPIVersion.VERSION2)
 client.connect("broker.hivemq.com", 1883, 60)
 
@@ -182,6 +176,7 @@ st.sidebar.header("🕹️ Remote Actuation")
 COMMAND_TOPIC = "curriculum/iot/commands/student01"
 
 if st.sidebar.button("🚨 Reset Local Alarm"):
+    # This sends a command BACK to the physical hardware!
     client.publish(COMMAND_TOPIC, "RESET_ALARM")
     st.sidebar.success("Command Sent: Resetting LED...")
     
@@ -190,56 +185,42 @@ if st.sidebar.button("🟢 Re-enable System"):
     st.sidebar.info("Command Sent: System Armed.")
 ```
 
-## 🛡️ Step 5: Security & Best Practices (The "Professional" Layer)
-Most IoT tutorials ignore security. In this lab, we are moving toward Production-Ready standards.
+---
 
-1. **Topic Isolation (Namespace Security)**
-In Week 2, we used a shared topic. In a real-world company, this would be a disaster—every employee would be controlling every machine.
+## 🛡️ Step 5: Security & Best Practices
+Most IoT tutorials ignore security. Professional IoT requires moving beyond "hobbyist" habits toward **Production-Ready** standards.
 
-* **The Solution:** We now use .../student01. This ensures that your "Command" only reaches your specific device.
+1. **Topic Isolation:** By using unique namespaces (.../student01), we prevent "Topic Hijacking" where one user accidentally controls another's device.
+2. **The .gitignore Shield:** Ensure your .gitignore includes .env. Pushing database credentials to GitHub allows bots to compromise your system in seconds.
+3. **Least Privilege:** In production, your database user should only have INSERT and SELECT rights, never DROP TABLE or Superuser access.
 
-2. **The .gitignore Shield**
-You have sensitive data in your .env file (Database passwords, Email credentials).
+---
 
-* **The Task:** Ensure your .gitignore file includes the line .env.
-* **The Consequence:** If you push your .env to GitHub, bots will find your credentials in seconds and potentially compromise your database or email account.
+## 🎨 Step 6: The "Out-of-the-Box" Challenge
+To graduate, your Capstone Digital Twin must include at least one of the following creative "hacks":
+* **Custom Logic:** Send a JSON command to change the ALARM_THRESHOLD variable remotely.
+* **Visual Flair:** Use Streamlit columns and metric cards to create a professional Telemetry UI.
+* **External Alert:** Connect a Discord Webhook to notify a team when a breach lasts longer than 60 seconds.
 
-3. **Least Privilege Principle**
-When you connected your Python bridge to PostgreSQL, did you use a "Superuser" account?
+---
 
-* **The Lesson:** In production, we create a specific user who only has permission to INSERT into one specific table. If that account is compromised, the rest of your database remains safe.
+## 🏁 The "Moment of Truth" Testing Sequence
+1. **Terminal 1:** Run your Bridge (python bridge_v2.py).
+2. **Terminal 2:** Run your Dashboard (streamlit run dashboard_v3.py).
+3. **Wokwi:** Start the simulation and slide the temperature to **35°C+**.
 
-## 🎨 Step 6: The "Out-of-the-Box" Creative Challenge
-You have the foundation. Now, it’s time to make this system your own. To graduate from this course, your Capstone Digital Twin must include at least one of the following creative "hacks":
-* **Custom Logic:** Change the ALARM_THRESHOLD remotely by sending a JSON command from the dashboard (e.g., {"new_limit": 35.5}).
-* **Visual Flair:** Use Streamlit "columns" and "metric cards" to create a dashboard that looks like a SpaceX control room.
-* **External Alert:** Connect a Discord Webhook so that when the temperature stays high for more than 1 minute, your entire team gets a message on their phones.
+**The Action:**
+* Wait for the **Red LED** to turn on in Wokwi.
+* Click "**Reset Local Alarm**" in your Streamlit Sidebar.
+* Watch the **Wokwi Serial Monitor**. If it says 🛑 REMOTE OVERRIDE and the LED turns off, you have successfully closed the loop!
 
-**Final Validation Sequence**
-* **Flash:** Upload the new "Listener" code to Wokwi.
-* **Launch:** Run your bridge_v2.py (to keep the database recording).
-* **Control:** Run streamlit run dashboard_v3.py.
+---
 
-**The Test:**
-* Crank the Wokwi slider to 40°C. The Red LED turns on.
-* Go to your Dashboard and click "Reset Local Alarm".
-* Did the LED turn off in Wokwi? If so, you have achieved Bi-Directional Control!
+## 🎓 Graduation: Capstone Complete! 🛰️
+Congratulations! You have transitioned from a "Passive Observer" to an "**Active Controller**."
 
-
-
-The "Moment of Truth" Testing Sequence
-Terminal 1: Run your Bridge (python bridge_v2.py).
-
-Terminal 2: Run this Dashboard (streamlit run dashboard_v3.py).
-
-Wokwi: Start the simulation.
-
-Action:
-
-Slide the temp to 35°C.
-
-Wait for the Red LED to turn on.
-
-Click the "Reset Local Alarm" button in your Streamlit Sidebar.
-
-Watch the Wokwi Serial Monitor. If it says 🛑 REMOTE OVERRIDE, you have officially completed the circuit.
+**Final Architecture Review:**
+* **Edge Intelligence:** Using "Report by Exception" to save bandwidth.
+* **Smart Data:** Using JSONB to future-proof your storage.
+* **Remote Actuation:** Implementing overrides to control hardware globally.
+* **Production Security:** Moving toward Namespace Isolation and Credential Management.
