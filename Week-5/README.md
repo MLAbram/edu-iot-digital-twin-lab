@@ -23,12 +23,11 @@ CREATE TABLE curriculum_iot_digital_twin_lab.smart_sensor_data (
 );
 ```
 
-## ⚙️ Step 2: The "Optimized" Wokwi C++ Logic
-
-**Clone Work**
+## ⚖️ Step 2: Clone Wokwi Work
 1. Open curriculum-iot-digital-twin-celsius-lab-week-2. 
 2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-5.
 
+## ⚙️ Step 3: The "Optimized" Wokwi C++ Logic
 **Add to Library: ArduinoJson**
 To send structured data, you must add the ArduinoJson library in the Wokwi Library Manager. We are also implementing a "Delta" check: the ESP32 will only transmit if the temperature changes by $\pm0.5^\circ\text{C}$.
 
@@ -144,7 +143,7 @@ void loop() {
 }
 ```
 
-## 🚦 Step 3: Validation & Execution Sequence
+## 🚦 Step 4: Validation & Execution Sequence
 To successfully test the "Smart Data" pipeline, you must follow this specific order. This ensures the "landing pad" is ready before the data starts flying.
 
 1. The "Sanity Check" (Optional but Recommended)
@@ -176,7 +175,7 @@ This is where we verify the Report by Exception logic:
 * **Check your inbox!**
 * **Verification:** The Python terminal should immediately display: 📥 Received JSON: {'temp': ..., 'hum': ..., 'uptime': ...} followed by a success message.
 
-## 🛠️ Step 4: Troubleshooting Checklist
+## 🛠️ Step 5: Troubleshooting Checklist
 * **No data appearing?** Ensure the MQTT_TOPIC in bridge_v2.py exactly matches the topic in your sketch.ino.
 * **JSON Error?** Make sure you added the ArduinoJson library in the Wokwi Library Manager tab.
 * **Database Error?** Confirm your .env file is present in the Week-5 folder.

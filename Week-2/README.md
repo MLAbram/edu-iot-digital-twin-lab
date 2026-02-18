@@ -7,7 +7,7 @@ Last week, your ESP32 made decisions locally. This week, we connect it to the in
 * Understand the **Publisher/Subscriber** model.
 * Send live temperature data to a Public MQTT Broker.
 
-## ⚖️ Step 1: Clone Work
+## ⚖️ Step 1: Clone Wokwi Work
 1. Open curriculum-iot-digital-twin-celsius-lab-week-1. 
 2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-2.
 
