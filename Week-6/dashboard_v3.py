@@ -7,6 +7,10 @@ import paho.mqtt.client as mqtt  # <--- ADDED
 from paho.mqtt.enums import CallbackAPIVersion # <--- ADDED
 from dotenv import load_dotenv
 
+# --- TERMINAL INSTRUCTION ---
+print("\n🚀 Dashboard Server is running...")
+print("👉 Press Ctrl+C in this terminal to stop the Dashboard.\n")
+
 # --- NEW: MQTT SETUP FOR COMMANDS ---
 # This initializes the connection so the buttons can "Publish"
 client = mqtt.Client(CallbackAPIVersion.VERSION2)
@@ -103,3 +107,4 @@ st.divider()
 st.write("⏱️ Next auto-refresh in 10 seconds...")
 time.sleep(10)
 st.rerun()
+print("Press Ctrl+C to stop the bridge.")
