@@ -2,8 +2,11 @@
 To achieve Bi-Directional Control, we have to flip the script. Until now, the ESP32 has been a "Talker" (Publisher) and the Bridge has been a "Listener" (Subscriber). Now, the ESP32 needs to do both.
 
 ## ⚖️ Step 1: Clone Wokwi Work
+> [!TIP]
+> **Pro-Tip:** To keep this guide open while watching the videos, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+
 1. **Website:** [Wokwi](https://wokwi.com/)
-2. Open curriculum-iot-digital-twin-celsius-lab-week-3. 
+2. Open curriculum-iot-digital-twin-celsius-lab-week-5. 
 3. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
 
 ## Step 2: The Real-World Scenario
@@ -159,21 +162,26 @@ void loop() {
 
 ---
 
-## 🎮 Step 2: Building the Control Center (Bi-Directional)
+## 🎮 Step 4: Building the Control Center (Bi-Directional)
 In this step, we upgrade our Streamlit Dashboard to include a "Remote Reset" button. This button will send a message backward through the MQTT broker to your ESP32.
 
 The "Control" Code for dashboard_v3.py
-Add this block to your Streamlit script. This creates a button that, when clicked, publishes the RESET_ALARM command to your unique namespace.
+This block of code was added to your Streamlit script. This creates a button that, when clicked, publishes the RESET_ALARM command to your unique namespace.
 ```python
-# --- REMOTE CONTROL SECTION ---
+import paho.mqtt.client as mqtt  # <--- ADDED
+from paho.mqtt.enums import CallbackAPIVersion # <--- ADDED
+
+# --- NEW: MQTT SETUP FOR COMMANDS ---
+# This initializes the connection so the buttons can "Publish"
+client = mqtt.Client(CallbackAPIVersion.VERSION2)
+client.connect("broker.hivemq.com", 1883, 60)
+
+# --- REMOTE CONTROL SECTION (In the Sidebar) ---
 st.sidebar.header("🕹️ Remote Actuation")
 
-# 1. Define the Command Topic (Must match your ESP32 exactly!)
 COMMAND_TOPIC = "curriculum/iot/commands/student01"
 
 if st.sidebar.button("🚨 Reset Local Alarm"):
-    # We use our existing MQTT client to publish a command
-    # This is "Actuation" — controlling physical hardware from the web!
     client.publish(COMMAND_TOPIC, "RESET_ALARM")
     st.sidebar.success("Command Sent: Resetting LED...")
     
@@ -182,7 +190,7 @@ if st.sidebar.button("🟢 Re-enable System"):
     st.sidebar.info("Command Sent: System Armed.")
 ```
 
-## 🛡️ Step 4: Security & Best Practices (The "Professional" Layer)
+## 🛡️ Step 5: Security & Best Practices (The "Professional" Layer)
 Most IoT tutorials ignore security. In this lab, we are moving toward Production-Ready standards.
 
 1. **Topic Isolation (Namespace Security)**
@@ -201,7 +209,7 @@ When you connected your Python bridge to PostgreSQL, did you use a "Superuser" a
 
 * **The Lesson:** In production, we create a specific user who only has permission to INSERT into one specific table. If that account is compromised, the rest of your database remains safe.
 
-## 🎨 Step 5: The "Out-of-the-Box" Creative Challenge
+## 🎨 Step 6: The "Out-of-the-Box" Creative Challenge
 You have the foundation. Now, it’s time to make this system your own. To graduate from this course, your Capstone Digital Twin must include at least one of the following creative "hacks":
 * **Custom Logic:** Change the ALARM_THRESHOLD remotely by sending a JSON command from the dashboard (e.g., {"new_limit": 35.5}).
 * **Visual Flair:** Use Streamlit "columns" and "metric cards" to create a dashboard that looks like a SpaceX control room.

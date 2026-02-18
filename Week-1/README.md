@@ -8,6 +8,9 @@ In this first lab, you will build the "sensing" part of your Digital Twin. You w
 * Implement "Edge Intelligence" by triggering an alert (LED) locally.
 
 ## 🛠️ Step 1: The Wokwi Circuit
+> [!TIP]
+> **Pro-Tip:** To keep this guide open while watching the videos, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+
 1.  Go to [Wokwi.com](https://wokwi.com) and start a new **ESP32** project. If prompted for featured templates, select the **ESP32** starter template. 
 2. Save as curriculum-iot-digital-twin-celsius-lab-week-1.
 3.  **Add Components:** Click the **"+"** button and add:
