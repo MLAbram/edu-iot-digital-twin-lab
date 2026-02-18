@@ -33,36 +33,31 @@ if st.sidebar.button("🟢 Re-enable System"):
 st.title("🛰️ Smart Sensor Dashboard (JSONB Edition)")
 st.markdown("This dashboard pulls live **JSONB** payloads from PostgreSQL and flattens them into a real-time view.")
 
-# --- 2. DATABASE CONNECTION ---
+from sqlalchemy import create_engine # <--- NEW IMPORT
+
+# --- 2. DATABASE CONNECTION (Updated for 2026 Standards) ---
 def get_data():
     try:
-        conn = psycopg2.connect(
-            dbname=os.getenv("DB_NAME"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASS"),
-            host=os.getenv("DB_HOST"),
-            port=os.getenv("DB_PORT")
-        )
+        # Create a connection string for SQLAlchemy
+        # format: postgresql://username:password@host:port/dbname
+        db_url = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+        engine = create_engine(db_url)
         
-        # We query the 'payload' column and the timestamp
         query = """
             SELECT payload, aud_insert_ts 
             FROM curriculum_iot_digital_twin_lab.smart_sensor_data 
             ORDER BY aud_insert_ts DESC 
             LIMIT 50
         """
-        # Read into a dataframe
-        df_raw = pd.read_sql_query(query, conn)
-        conn.close()
+        
+        # Use the engine instead of the raw connection
+        df_raw = pd.read_sql_query(query, engine)
 
         if df_raw.empty:
             return pd.DataFrame()
 
-        # MAGIC STEP: Flatten the JSON 'payload' column into individual columns (temp, hum, uptime)
-        # This turns {"temp": 25} into a column named 'temp'
+        # FIXED: These must be outside the empty check block
         df_payload = pd.json_normalize(df_raw['payload'])
-        
-        # Combine the new columns with the timestamp
         df_final = pd.concat([df_payload, df_raw['aud_insert_ts']], axis=1)
         return df_final
     except Exception as e:
@@ -90,14 +85,12 @@ if not df.empty:
 
     # B. Visualizing the Trend
     st.subheader("Temperature Trend")
-    # We set the index to the timestamp so the chart plots correctly over time
     chart_data = df.set_index('aud_insert_ts')[['temp']]
     st.line_chart(chart_data)
 
-    # C. Raw Data Table
+    # C. Raw Data Table (Now 2026 Compliant)
     st.subheader("Latest JSON Payloads")
-    st.dataframe(df, use_container_width=True)
-
+    st.dataframe(df, width='stretch')
 else:
     st.warning("No data found in the 'smart_sensor_data' table. Start your bridge and move the Wokwi slider!")
 
