@@ -5,12 +5,12 @@ To achieve Bi-Directional Control, we have to flip the script. Until now, the ES
 1. Open curriculum-iot-digital-twin-celsius-lab-week-3. 
 2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
 
-Step 1: The Real-World Scenario
+## Step 2: The Real-World Scenario
 We’ll frame this as the "Remote Override" system.
 
 The Problem: Your "Digital Twin" detects a high-temp alarm. You’ve checked your dashboard and realize it’s a sensor glitch or a controlled burn. You need to "silence" the alarm remotely so the red LED stops flashing on-site.
 
-Step 2: The ESP32 "Listener" Update
+## Step 3: The ESP32 "Listener" Update
 We need to add a Callback Function to your sketch.ino. This is like giving the ESP32 a "mailing address" where it can receive instructions.
 
 Here is the updated code. Notice the new COMMAND_TOPIC and the logic inside the callback and reconnect functions. Here is the logic to add to your Week 6 sketch.ino:
@@ -181,7 +181,7 @@ if st.sidebar.button("🟢 Re-enable System"):
     st.sidebar.info("Command Sent: System Armed.")
 ```
 
-## 🛡️ Step 3: Security & Best Practices (The "Professional" Layer)
+## 🛡️ Step 4: Security & Best Practices (The "Professional" Layer)
 Most IoT tutorials ignore security. In this lab, we are moving toward Production-Ready standards.
 
 1. **Topic Isolation (Namespace Security)**
@@ -200,7 +200,7 @@ When you connected your Python bridge to PostgreSQL, did you use a "Superuser" a
 
 * **The Lesson:** In production, we create a specific user who only has permission to INSERT into one specific table. If that account is compromised, the rest of your database remains safe.
 
-## 🎨 Step 4: The "Out-of-the-Box" Creative Challenge
+## 🎨 Step 5: The "Out-of-the-Box" Creative Challenge
 You have the foundation. Now, it’s time to make this system your own. To graduate from this course, your Capstone Digital Twin must include at least one of the following creative "hacks":
 * **Custom Logic:** Change the ALARM_THRESHOLD remotely by sending a JSON command from the dashboard (e.g., {"new_limit": 35.5}).
 * **Visual Flair:** Use Streamlit "columns" and "metric cards" to create a dashboard that looks like a SpaceX control room.
