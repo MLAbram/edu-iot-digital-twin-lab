@@ -224,3 +224,22 @@ You have the foundation. Now, it’s time to make this system your own. To gradu
 * Crank the Wokwi slider to 40°C. The Red LED turns on.
 * Go to your Dashboard and click "Reset Local Alarm".
 * Did the LED turn off in Wokwi? If so, you have achieved Bi-Directional Control!
+
+
+
+The "Moment of Truth" Testing Sequence
+Terminal 1: Run your Bridge (python bridge_v2.py).
+
+Terminal 2: Run this Dashboard (streamlit run dashboard_v3.py).
+
+Wokwi: Start the simulation.
+
+Action:
+
+Slide the temp to 35°C.
+
+Wait for the Red LED to turn on.
+
+Click the "Reset Local Alarm" button in your Streamlit Sidebar.
+
+Watch the Wokwi Serial Monitor. If it says 🛑 REMOTE OVERRIDE, you have officially completed the circuit.
