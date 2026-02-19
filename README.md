@@ -47,6 +47,6 @@ This repository is designed for both independent learners and instructors.
 ---
 
 ## 👨‍🏫 About the Author
-I am a University Adjunct Professor with over 20 years of experience in the technical sector, and an Entrepreneur with a passion for making technology education accessible to everyone. This lab series was developed to bridge the gap between theoretical IoT and practical, full-stack implementation.
+I am a University Adjunct Professor with over 30 years of experience in the technical sector, and an Entrepreneur with a passion for making technology education accessible to everyone. This lab series was developed to bridge the gap between theoretical IoT and practical, full-stack implementation.
 
 ---

@@ -15,7 +15,7 @@ In this first lab, you will build the Sensing Layer of your Digital Twin. You wi
 > **Pro-Tip:** To keep this guide open while building, **Right-Click** the links below and select "**Open link in new tab**."
 
 1.  Go to [Wokwi.com](https://wokwi.com) and start a new **ESP32** project. If prompted for featured templates, select the **ESP32** starter template. 
-2. **Save as** curriculum-iot-digital-twin-celsius-lab-week-1.
+2. **Save as** edu-iot-digital-twin-celsius-lab-week-1.
 3.  **Add Components:** Click the "+" button and add a DHT22, a Red LED, and a Resistor (set to 220 Ohms).
 4. **Wiring Guide:** Follow the table below to connect your components.
 
@@ -86,7 +86,7 @@ void loop() {
 In a global market, your Digital Twin must be adaptable. Let's modify the edge logic for an Imperial-unit environment.
 
 1. **Clone the Lab**
-Click the **down arrow** next to the Save button and select **Save a copy**. Name it: curriculum-iot-digital-twin-fahrenheit-lab-week-1.
+Click the **down arrow** next to the Save button and select **Save a copy**. Name it: edu-iot-digital-twin-fahrenheit-lab-week-1.
 2. **Update the Transformation Logic**
 Replace your loop() function with this code, which uses the library's built-in conversion helper:
 ```cpp

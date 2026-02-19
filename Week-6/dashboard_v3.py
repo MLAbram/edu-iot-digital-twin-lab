@@ -24,7 +24,7 @@ st.set_page_config(page_title="IoT Digital Twin v3", page_icon="🛰️", layout
 # --- REMOTE CONTROL SECTION (In the Sidebar) ---
 st.sidebar.header("🕹️ Remote Actuation")
 
-COMMAND_TOPIC = "curriculum/iot/commands/student01"
+COMMAND_TOPIC = "edu/iot/commands/student01"
 
 if st.sidebar.button("🚨 Reset Local Alarm"):
     client.publish(COMMAND_TOPIC, "RESET_ALARM")
@@ -49,7 +49,7 @@ def get_data():
         
         query = """
             SELECT payload, aud_insert_ts 
-            FROM curriculum_iot_digital_twin_lab.smart_sensor_data 
+            FROM edu_iot_digital_twin_lab.smart_sensor_data 
             ORDER BY aud_insert_ts DESC 
             LIMIT 50
         """

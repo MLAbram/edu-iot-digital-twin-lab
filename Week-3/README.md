@@ -13,13 +13,13 @@ Before running the code, we need to create a professional data structure. Open *
 
 ```sql
 -- 1. Create the central database
-CREATE DATABASE curriculum;
+CREATE DATABASE edu;
 
--- 2. Connect to the 'curriculum' database, then create the schema
-CREATE SCHEMA curriculum_iot_digital_twin_lab;
+-- 2. Connect to the 'edu' database, then create the schema
+CREATE SCHEMA edu_iot_digital_twin_lab;
 
 -- 3. Create the table with audit-ready timestamps
-CREATE TABLE curriculum_iot_digital_twin_lab.sensor_data (
+CREATE TABLE edu_iot_digital_twin_lab.sensor_data (
     id SERIAL PRIMARY KEY,
     temperature FLOAT,
     unit VARCHAR(1),
@@ -50,7 +50,7 @@ Create a file in your **Week-3** folder titled .env. This file holds your "Secre
 
 Add the following and update the DB_PASS **to your actual password**:
 ```bash
-DB_NAME=curriculum
+DB_NAME=edu
 DB_USER=postgres
 DB_PASS=your_secret_password
 DB_HOST=localhost
@@ -67,7 +67,7 @@ This script acts as the "**Subscriber**" that listens to the broker and writes e
 ## 🧪 Step 5: Verification
 * [ ] **Wokwi:** Is your simulation running and sending data?
 * [ ] **Bridge:** Does the terminal say ✅ Record successfully committed?
-* [ ] **Persistence:** In pgAdmin, run: SELECT * FROM curriculum_iot_digital_twin_lab.sensor_data;. Do you see your data?
+* [ ] **Persistence:** In pgAdmin, run: SELECT * FROM edu_iot_digital_twin_lab.sensor_data;. Do you see your data?
 
 ---
 

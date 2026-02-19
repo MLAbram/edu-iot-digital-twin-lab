@@ -25,7 +25,7 @@ def create_dashboard():
         # We query the sensor_data table (Week 4 Standard Schema)
         query = """
             SELECT temperature, aud_insert_ts 
-            FROM curriculum_iot_digital_twin_lab.sensor_data 
+            FROM edu_iot_digital_twin_lab.sensor_data 
             ORDER BY aud_insert_ts DESC 
             LIMIT 100;
         """

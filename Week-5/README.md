@@ -16,7 +16,7 @@ Before we can ingest JSON, we need to prepare the "landing pad" in PostgreSQL. W
 **Run this in pgAdmin:**
 
 ```sql
-CREATE TABLE curriculum_iot_digital_twin_lab.smart_sensor_data (
+CREATE TABLE edu_iot_digital_twin_lab.smart_sensor_data (
     id SERIAL PRIMARY KEY,
     sensor_id VARCHAR(50) DEFAULT 'ESP32_DEV_01',
     payload JSONB, -- This stores the entire JSON object
@@ -25,8 +25,8 @@ CREATE TABLE curriculum_iot_digital_twin_lab.smart_sensor_data (
 ```
 
 ## ⚖️ Step 2: Clone Wokwi Work
-1. Open curriculum-iot-digital-twin-celsius-lab-week-2. 
-2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-celsius-lab-week-5.
+1. Open edu-iot-digital-twin-celsius-lab-week-2. 
+2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: edu-iot-digital-twin-celsius-lab-week-5.
 
 ## ⚙️ Step 3: The "Optimized" Wokwi C++ Logic
 **Add to Library: ArduinoJson**
@@ -134,7 +134,7 @@ void loop() {
     char buffer[256];
     serializeJson(doc, buffer);
     
-    client.publish("curriculum/iot/temp", buffer);
+    client.publish("edu/iot/temp", buffer);
     lastTemp = currentTemp;
     
     Serial.println("📡 Change detected. JSON payload sent!");
@@ -149,19 +149,19 @@ To successfully test the "Smart Data" pipeline, you must follow this specific or
 
 1. The "Sanity Check" (Optional but Recommended)
 Before running your Python scripts, open the HiveMQ Web Client.
-* **Topic:** curriculum/iot/temp
+* **Topic:** edu/iot/temp
 * **Why:** This confirms the "Smart Data" is actually hitting the cloud before you try to process it with Python.
 
 2. The Database (The Foundation)
 * **Action:** Run the SQL script from Step 1 in pgAdmin.
-* **Verification:** Refresh your tables list in the curriculum_iot_digital_twin_lab schema. You should see smart_sensor_data.
+* **Verification:** Refresh your tables list in the edu_iot_digital_twin_lab schema. You should see smart_sensor_data.
 
 3. The Smart Bridge (The Courier)
 * **Action:** Open a terminal in your Week-5 folder and run:
 ```bash
 python bridge_v2.py
 ```
-* **Verification:** You should see: 🚀 Smart Bridge active. Listening for JSON on: curriculum/iot/smart_data.
+* **Verification:** You should see: 🚀 Smart Bridge active. Listening for JSON on: edu/iot/smart_data.
 
 4. The Wokwi Simulation (The Source)
 * **Action:** Start your Wokwi simulation.

@@ -91,15 +91,15 @@ Now that your tools are installed, you need a local place to save your code and 
 ### **Option A: Clone the Repository (Recommended)**
 If you are comfortable with Git, cloning this repository is the fastest way to get the structure. Open your terminal/VS Code and run:
 ```bash
-git clone [https://github.com/MLAbram/curriculum-iot-digital-twin-lab.git](https://github.com/MLAbram/curriculum-iot-digital-twin-lab.git)
-cd curriculum-iot-digital-twin-lab
+git clone [https://github.com/ApexISStrategy/edu-iot-digital-twin-lab.git](https://github.com/ApexISStrategy/edu-iot-digital-twin-lab.git)
+cd edu-iot-digital-twin-lab
 ```
 
 ### **Option B: Manual Setup**
 
 If you prefer to build the structure manually as we go:
 
-Create a folder on your computer named curriculum-iot-digital-twin-lab.
+Create a folder on your computer named edu-iot-digital-twin-lab.
 
 Open this folder in Visual Studio Code or your favorite programming IDE.
 

@@ -13,7 +13,7 @@ Last week, your ESP32 made decisions locally. This week, we connect it to the in
 ## ⚖️ Step 1: Clone Wokwi Work
 1. Open your **Week 1** project.
 2. Make a copy by clicking the **down arrow** next to the Save button.
-3. Select **Save a copy** and name it: curriculum-iot-digital-twin-celsius-lab-week-2.
+3. Select **Save a copy** and name it: edu-iot-digital-twin-celsius-lab-week-2.
 
 ---
 
@@ -85,7 +85,7 @@ void loop() {
   
   // Publish data to the cloud!
   Serial.println("🛰️ Publishing Telemetry: " + tempStr + "°C");
-  client.publish("curriculum/iot/temp", tempStr.c_str());
+  client.publish("edu/iot/temp", tempStr.c_str());
 
   delay(5000); // Send data every 5 seconds
 }
@@ -102,7 +102,7 @@ void loop() {
   * **Host:** broker.hivemq.com | Port: 8884 | SSL: ✅ Checked
   * **ClientID:** Click "Generate ID".
 3. Click **Connect**. (The status light must turn Green).
-4. **Subscribe:** Click Add New Topic Subscription and enter curriculum/iot/temp.
+4. **Subscribe:** Click Add New Topic Subscription and enter edu/iot/temp.
 5. **Observe:** Adjust the Wokwi slider. Within 5 seconds, your data will appear on the HiveMQ dashboard!
 
 ---
@@ -110,7 +110,7 @@ void loop() {
 ## 🛠️ Troubleshooting
 * **WiFi OK, but no Data?** Ensure you clicked **Connect** on the HiveMQ site before subscribing.
 * **Failed, rc=-2?** This means the Client ID is already in use. Change "ESP32_Student_ID_99" in your code to something unique (like your name).
-* **Case Sensitivity:** MQTT topics are exact. Curriculum/Iot is not the same as curriculum/iot.
+* **Case Sensitivity:** MQTT topics are exact. edu/Iot is not the same as edu/iot.
 
 ---
 

@@ -27,7 +27,7 @@ def get_data():
         
         query = """
             SELECT payload, aud_insert_ts 
-            FROM curriculum_iot_digital_twin_lab.smart_sensor_data 
+            FROM edu_iot_digital_twin_lab.smart_sensor_data 
             ORDER BY aud_insert_ts DESC 
             LIMIT 50
         """

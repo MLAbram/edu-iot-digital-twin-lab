@@ -12,7 +12,7 @@ load_dotenv()
 
 # --- SETTINGS ---
 MQTT_BROKER = "broker.hivemq.com"
-MQTT_TOPIC = "curriculum/iot/temp/student01" 
+MQTT_TOPIC = "edu/iot/temp/student01" 
 ALARM_THRESHOLD = 30.0  # Matches our ESP32 LED setting
 
 def send_email_alert(temp):
@@ -53,7 +53,7 @@ def on_message(client, userdata, msg):
         # 2. Store in the SMART table
         conn = get_db_connection()
         cur = conn.cursor()
-        query = "INSERT INTO curriculum_iot_digital_twin_lab.smart_sensor_data (payload) VALUES (%s)"
+        query = "INSERT INTO edu_iot_digital_twin_lab.smart_sensor_data (payload) VALUES (%s)"
         cur.execute(query, (json.dumps(data),))
         conn.commit()
         cur.close()

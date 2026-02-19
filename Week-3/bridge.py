@@ -23,7 +23,7 @@ def get_db_connection():
 
 # MQTT Broker Settings
 MQTT_BROKER = "broker.hivemq.com"
-MQTT_TOPIC = "curriculum/iot/temp"
+MQTT_TOPIC = "edu/iot/temp"
 
 def on_message(client, userdata, msg):
     try:
@@ -37,7 +37,7 @@ def on_message(client, userdata, msg):
         
         # aud_insert_ts is handled automatically by the DB Default
         query = """
-            INSERT INTO curriculum_iot_digital_twin_lab.sensor_data (temperature, unit) 
+            INSERT INTO edu_iot_digital_twin_lab.sensor_data (temperature, unit) 
             VALUES (%s, 'C')
         """
         

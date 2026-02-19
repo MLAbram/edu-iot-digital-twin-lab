@@ -16,9 +16,9 @@ To achieve Bi-Directional Control, we have to flip the script. Until now, the ES
 > Pro-Tip: To keep this guide open while watching the videos, **Right-Click** the links below and select "**Open link in new tab**" (or use Ctrl/Cmd + Click).
 
 1. **Website:** [Wokwi](https://wokwi.com/)
-2. Open your **Week 5** project (curriculum-iot-digital-twin-celsius-lab-week-5).
+2. Open your **Week 5** project (edu-iot-digital-twin-celsius-lab-week-5).
 3. Make a copy by clicking on the **down arrow** next to the grayed-out Save button. (If your Save button is red, click to save first).
-4. Select **Save a copy** and name it: curriculum-iot-digital-twin-celsius-lab-week-6.
+4. Select **Save a copy** and name it: edu-iot-digital-twin-celsius-lab-week-6.
 
 ---
 
@@ -47,8 +47,8 @@ const char* password = "";
 const char* mqtt_server = "broker.hivemq.com";
 
 // UNIQUE NAMESPACE: In the real world, this prevents "Topic Hijacking"
-const char* DATA_TOPIC = "curriculum/iot/temp/student01";
-const char* COMMAND_TOPIC = "curriculum/iot/commands/student01";
+const char* DATA_TOPIC = "edu/iot/temp/student01";
+const char* COMMAND_TOPIC = "edu/iot/commands/student01";
 
 const int LED_PIN = 2;
 float lastTemp = 0;
@@ -181,7 +181,7 @@ client.connect("broker.hivemq.com", 1883, 60)
 # --- REMOTE CONTROL SECTION (In the Sidebar) ---
 st.sidebar.header("🕹️ Remote Actuation")
 
-COMMAND_TOPIC = "curriculum/iot/commands/student01"
+COMMAND_TOPIC = "edu/iot/commands/student01"
 
 if st.sidebar.button("🚨 Reset Local Alarm"):
     # This sends a command BACK to the physical hardware!

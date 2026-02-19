@@ -52,7 +52,7 @@ def run_analytics():
                     MAX((payload->>'temp')::numeric) as max_temp,
                     MIN((payload->>'temp')::numeric) as min_temp,
                     COUNT(*) as total_readings
-                FROM curriculum_iot_digital_twin_lab.smart_sensor_data
+                FROM edu_iot_digital_twin_lab.smart_sensor_data
                 WHERE aud_insert_ts > NOW() - INTERVAL '24 hours';
             """)
             
@@ -75,7 +75,7 @@ def run_analytics():
                 # 2. LATEST READING CHECK (The 'Real-Time' Pulse)
                 query_latest = text("""
                     SELECT (payload->>'temp')::numeric 
-                    FROM curriculum_iot_digital_twin_lab.smart_sensor_data 
+                    FROM edu_iot_digital_twin_lab.smart_sensor_data 
                     ORDER BY aud_insert_ts DESC 
                     LIMIT 1;
                 """)
