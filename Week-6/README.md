@@ -3,6 +3,14 @@ To achieve Bi-Directional Control, we have to flip the script. Until now, the ES
 
 ---
 
+## 🎯 Learning Objectives
+* **Bi-Directional Communication:** Transform the ESP32 from a "Sensor" into an "Actuator" that responds to web commands.
+* **State Management:** Implement flags to handle complex logic overrides between local sensing and remote control.
+* **Multi-Tenant Security:** Apply unique **Namespaces** to prevent cross-device topic hijacking.
+* **Production Hardening:** Secure your "secrets" using environment shields and the Principle of Least Privilege.
+
+---
+
 ## ⚖️ Step 1: Clone Wokwi Work
 > [!TIP]
 > Pro-Tip: To keep this guide open while watching the videos, **Right-Click** the links below and select "**Open link in new tab**" (or use Ctrl/Cmd + Click).

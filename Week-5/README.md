@@ -1,6 +1,7 @@
 # Week 5: Smart Data & The JSON Standard 🛰️
-
 Now that we have a stable pipeline, we move from "Simple Data" to "Smart Data." This week focuses on the industry-standard **JSON** format and **Edge Optimization** to make your Digital Twin more efficient.
+
+---
 
 ## 🎯 Learning Objectives
 * **JSON Serialization:** Learn to bundle multiple sensor readings into a single packet.

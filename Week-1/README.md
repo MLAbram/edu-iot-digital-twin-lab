@@ -1,49 +1,69 @@
-# Week 1: The Virtual Edge & Local Logic 🌡️
+## 🌡️ Week 1: The Virtual Edge & Local Logic
+In this first lab, you will build the Sensing Layer of your Digital Twin. You will use a virtual ESP32 and a DHT22 sensor to monitor environmental conditions and make autonomous decisions at the "Edge."
 
-In this first lab, you will build the "sensing" part of your Digital Twin. You will use a virtual ESP32 and a DHT22 sensor to monitor environmental conditions.
+---
 
 ## 🎯 Learning Objectives
-* Interface with a digital temperature and humidity sensor (DHT22).
-* Write C++/Arduino logic to process sensor data.
-* Implement "Edge Intelligence" by triggering an alert (LED) locally.
+* **Hardware Interfacing:** Connect a digital DHT22 sensor to a microcontroller.
+* **Edge Intelligence:** Write C++ logic to trigger a local alarm (LED).
+* **Data Transformation:** Convert raw sensor data into human-readable telemetry.
+
+---
 
 ## 🛠️ Step 1: The Wokwi Circuit
 > [!TIP]
-> **Pro-Tip:** To keep this guide open while watching the videos, **Right-Click** the links below and select **"Open link in new tab"** (or use Ctrl/Cmd + Click).
+> **Pro-Tip:** To keep this guide open while building, **Right-Click** the links below and select "**Open link in new tab**."
 
 1.  Go to [Wokwi.com](https://wokwi.com) and start a new **ESP32** project. If prompted for featured templates, select the **ESP32** starter template. 
-2. Save as curriculum-iot-digital-twin-celsius-lab-week-1.
-3.  **Add Components:** Click the **"+"** button and add:
-    * **DHT22** (Temperature & Humidity Sensor)
-    * **LED** (Red)
-    * **Resistor** (Set to 220 Ohms)
-4.  **Wiring:**
-    * **DHT22:** dht1:VCC to **ESP32** esp:3V3 | dht1:GND to **ESP32** esp:GND.1 | dht1:SDA to **ESP32** esp:15.
-    * **LED:** Long leg (Anode) led1:A to **ESP32** esp:D2 | Short leg (Cathode) led1:C to r1:1 of the Resistor | r1:2 from the Resistor to **ESP32** esp:GND.2.
+2. **Save as** curriculum-iot-digital-twin-celsius-lab-week-1.
+3.  **Add Components:** Click the "+" button and add a DHT22, a Red LED, and a Resistor (set to 220 Ohms).
+4. **Wiring Guide:** Follow the table below to connect your components.
 
-## 💻 Step 2: The Code
-Copy the code below into the `sketch.ino` tab in Wokwi. This code reads the temperature and turns on the "Critical Alert" LED if the temperature exceeds 30°C.
+| Component | From Pin | To ESP32 Pin |
+| :--- | :--- | :--- |
+| **DHT22** | VCC | 3V3 |
+| **DHT22** | SDA | 15 |
+| **DHT22** | GND | GND |
+| **Red LED** | Anode (Long Leg) | D2 |
+| **Red LED** | Cathode (Short) | (Connect to Resistor) |
+| **Resistor** | End of Resistor | GND |
 
+---
+
+## 📚 Step 2: Library Management
+Microcontrollers need "drivers" to talk to sensors.
+1. Click the **Library Manager** tab (the trash bin icon).
+2. **Search for and add:** DHT sensor library for ESPx.
+
+---
+
+## 💻 Step 3: The Edge Logic (sketch.ino)
+Copy the code below into your Wokwi editor. This script processes environmental data and triggers a Critical Alert if the temperature exceeds 30°C.
 ```cpp
 #include "DHTesp.h"
 
 const int DHT_PIN = 15;
-const int LED_PIN = 2;
+const int LED_PIN = 2; // Most ESP32s have an on-board blue LED here too!
 DHTesp dhtSensor;
 
 void setup() {
   Serial.begin(115200);
   dhtSensor.setup(DHT_PIN, DHTesp::DHT22);
   pinMode(LED_PIN, OUTPUT);
+  Serial.println("🛰️ Digital Twin Sensing Layer: Online");
 }
 
 void loop() {
-  TempAndHumidity  data = dhtSensor.getTempAndHumidity();
-  Serial.println("Temp: " + String(data.temperature, 2) + "°C");
+  TempAndHumidity data = dhtSensor.getTempAndHumidity();
   
-  // Local Edge Logic
-  if (data.temperature > 30) {
+  // Output telemetry to the Serial Monitor
+  Serial.print("Current Temp: " + String(data.temperature, 2) + "°C | ");
+  Serial.println("Humidity: " + String(data.humidity, 1) + "%");
+  
+  // --- Edge Intelligence: Autonomous Decision ---
+  if (data.temperature > 30.0) {
     digitalWrite(LED_PIN, HIGH); // Alarm ON
+    Serial.println("⚠️ WARNING: Temperature exceeds safety threshold!");
   } else {
     digitalWrite(LED_PIN, LOW);  // Alarm OFF
   }
@@ -54,56 +74,32 @@ void loop() {
 
 ---
 
-## 🧪 Step 3: Testing
-Click the Play button in Wokwi.
-
-If prompted to install DHT sensor library for ESPx library, click the link to install.
-
-Click on the DHT22 sensor while the simulation is running.
-
-Use the slider to change the temperature.
-
-Observe: Does the Red LED turn on when you go above 30°C? Check the Serial Monitor at the bottom to see the real-time data logs.
+## 🧪 Step 4: Testing & Verification
+1. Click the **Play** button.
+2. Click on the **DHT22 sensor** while the simulation is running.
+3. **Adjust the Slider:** Change the temperature.
+4. **Observe:** Does the Red LED turn on when you cross 30°C? Check the Serial Monitor at the bottom for the data logs.
 
 ---
 
-## 🏁 Expected Results
-Once your simulation is running and you have adjusted the DHT22 slider, your workspace should look similar to the image below:
+## 🌟 BONUS: The "Fahrenheit" Pivot
+In a global market, your Digital Twin must be adaptable. Let's modify the edge logic for an Imperial-unit environment.
 
-![Lab 1 Final Result](./images/lab1-results.png)
-
-### 📝 Results Checklist:
-* **Serial Monitor:** Shows live temperature readings every 2 seconds.
-* **DHT22 Sensor:** Slider moved above the threshold (30°C or 86°F).
-* **Red LED:** Fully illuminated.
-* **ESP32:** If using Pin 2, notice the small blue "on-board" LED is also lit!
-
----
-
-## 🌟 BONUS: Unit Conversion (Fahrenheit)
-Now that you have the basic circuit working in Celsius, let’s adapt the project for a US-based environment. 
-
-### 🎯 Learning Objective
-* Perform mathematical data transformation at the "Edge."
-* Understand the difference between metric sensor data and localized user requirements.
-
-## ⚖️ Step 1: Clone Work
-Make a copy of your existing file by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: curriculum-iot-digital-twin-fahrenheit-lab-week-1.
-
-### 💻 Step 2: The Logic Update
-In your code, we need to convert the raw Celsius data into Fahrenheit. Update your `loop()` function to include the conversion formula:
-
+1. **Clone the Lab**
+Click the **down arrow** next to the Save button and select **Save a copy**. Name it: curriculum-iot-digital-twin-fahrenheit-lab-week-1.
+2. **Update the Transformation Logic**
+Replace your loop() function with this code, which uses the library's built-in conversion helper:
 ```cpp
 void loop() {
   TempAndHumidity data = dhtSensor.getTempAndHumidity();
   
-  // Convert Celsius to Fahrenheit using the library helper
+  // Convert Celsius to Fahrenheit at the Edge
   float tempF = dhtSensor.toFahrenheit(data.temperature);
   
-  Serial.println("Temp: " + String(tempF, 2) + "°F");
+  Serial.println("Telemetry: " + String(tempF, 2) + "°F");
   
-  // Update your logic for Fahrenheit (e.g., 86°F is roughly 30°C)
-  if (tempF > 86) {
+  // Threshold Pivot: 86°F is the equivalent of 30°C
+  if (tempF > 86.0) {
     digitalWrite(LED_PIN, HIGH);
   } else {
     digitalWrite(LED_PIN, LOW);
@@ -113,14 +109,8 @@ void loop() {
 }
 ```
 
-🧪 Step 2: Verification
-Click Play in Wokwi.
+## 💡 Why this matters
+In professional IoT, we don't send every tiny detail to the cloud. By handling the temperature alert locally (on the ESP32), we ensure the alarm works even if the WiFi goes down. This is called **Edge Computing**.
 
-Adjust the DHT22 slider.
-
-Observe: Your Serial Monitor should now display temperatures in °F.
-
-Confirm: Does the Red LED illuminate when the temperature crosses 86°F?
-
-💡 Why this matters
-In a professional Digital Twin setup, sensors often speak in one "language" (Metric), but the dashboard needs to speak another (Imperial). Handling this conversion on the ESP32 is called Edge Processing—it saves the central server from having to do the math later!
+**Data Transformation**
+Sensors usually speak in Metric. Handling unit conversion on the device rather than the server is an efficient way to save "Cloud Computing" costs. You are already thinking like a **Tech Architect**!

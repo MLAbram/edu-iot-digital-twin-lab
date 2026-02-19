@@ -1,52 +1,74 @@
 import os
-from sqlalchemy import create_engine
 import pandas as pd
 import plotly.express as px
+from sqlalchemy import create_engine
 from dotenv import load_dotenv
 
-# Load credentials
+# Load Environment Variables (Database Credentials)
 load_dotenv()
 
+# --- TERMINAL INSTRUCTION ---
+print("\n📊 Launching Visual Intelligence Dashboard...")
+print("👉 Note: This will open a new tab in your default web browser.\n")
+
 def get_db_engine():
-    # Construct the connection string for SQLAlchemy
-    user = os.getenv("DB_USER")
-    password = os.getenv("DB_PASS")
-    host = os.getenv("DB_HOST")
-    port = os.getenv("DB_PORT")
-    dbname = os.getenv("DB_NAME")
-    
-    # Format: postgresql://user:password@host:port/dbname
-    url = f"postgresql://{user}:{password}@{host}:{port}/{dbname}"
-    return create_engine(url)
+    """Creates a SQLAlchemy engine for secure, modern database access."""
+    db_url = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+    return create_engine(db_url)
 
 def create_dashboard():
+    """Queries the database and generates an interactive Plotly trend chart."""
     try:
-        # 1. Connect and Fetch Data using the Engine
+        # 1. Establish Connection & Fetch Data
         engine = get_db_engine()
-        query = "SELECT temperature, aud_insert_ts FROM curriculum_iot_digital_twin_lab.sensor_data ORDER BY aud_insert_ts DESC LIMIT 100;"
         
-        # Pandas uses the engine to "slurp" the data
+        # We query the sensor_data table (Week 4 Standard Schema)
+        query = """
+            SELECT temperature, aud_insert_ts 
+            FROM curriculum_iot_digital_twin_lab.sensor_data 
+            ORDER BY aud_insert_ts DESC 
+            LIMIT 100;
+        """
+        
+        # Pandas uses the engine to "slurp" the data into a DataFrame
         df = pd.read_sql_query(query, engine)
 
         if df.empty:
-            print("📭 No data found to visualize. Move the Wokwi slider first!")
+            print("📭 No records found. Move the Wokwi slider to generate data first!")
             return
 
-        # 2. Create the Plotly Line Chart
+        # 2. Construct the Plotly Line Chart
+        # We use 'plotly_dark' for a high-tech "Control Room" aesthetic
         fig = px.line(
             df, 
             x='aud_insert_ts', 
             y='temperature', 
-            title='IoT Digital Twin: 100-Point Temperature Trend',
-            labels={'aud_insert_ts': 'Time', 'temperature': 'Temperature (°C)'},
-            markers=True
+            title='🛰️ IoT Digital Twin: Real-Time Temperature Telemetry',
+            labels={'aud_insert_ts': 'Timestamp', 'temperature': 'Temperature (°C)'},
+            markers=True,
+            template='plotly_dark' 
         )
 
-        # 3. Add the Critical Threshold line (Matching your README's 70°C)
-        fig.add_hline(y=70.0, line_dash="dot", line_color="red", annotation_text="Critical Threshold (70°C)")
+        # 3. Add Strategic Threshold Line
+        # Aligned with our 30.0°C alarm threshold for curriculum consistency
+        fig.add_hline(
+            y=30.0, 
+            line_dash="dot", 
+            line_color="red", 
+            annotation_text="Critical Threshold (30°C)",
+            annotation_position="top left"
+        )
 
-        # 4. Open in Browser
-        print("📊 Generating dashboard... Check your browser!")
+        # 4. Final Layout Refinements
+        fig.update_layout(
+            hovermode="x unified",
+            title_font_size=24,
+            xaxis_title="Time of Reading",
+            yaxis_title="Degrees Celsius (°C)"
+        )
+
+        # 5. Execute Visualization
+        print("✅ Data retrieved successfully. Rendering chart...")
         fig.show()
 
     except Exception as e:
