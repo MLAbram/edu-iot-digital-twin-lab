@@ -14,7 +14,7 @@ Data is only valuable if it drives action. Today, we transform your "Digital Twi
 > [!IMPORTANT]
 > **Credential Check:** Ensure you have copied your .env file from Week 3 into your Week 4 folder. Your script cannot speak to the database or the email server without it.
 
-To support modern data standards and 2026-compliant visualizations, run the following in your **SandboxEnvironment**:
+To support modern data standards and 2026-compliant visualizations, run the following in your **PythonSandbox**:
 ```bash
 pip install plotly pandas sqlalchemy
 ```
@@ -83,3 +83,12 @@ In a real-world startup, you can't afford to hire someone to watch a screen 24/7
 
 **Data Governance**
 Using SQL aggregates (AVG, MIN, MAX) directly in the database is far more efficient than pulling all the data into Python. This is how you build systems that can scale to millions of rows without slowing down.
+
+---
+
+## 🛠️ Environment Check
+Ensure you are working from the root of your project and your sandbox is active:
+1. **Open Terminal:** Navigate to edu-iot-digital-twin-lab.
+2. **Activate:** * source PythonSandbox/bin/activate (Mac/Linux)
+   * PythonSandbox\Scripts\activate (Windows)
+3. **Verify:** You should see (PythonSandbox) at the start of your command line.

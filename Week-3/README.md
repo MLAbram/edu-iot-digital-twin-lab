@@ -35,12 +35,12 @@ CREATE TABLE edu_iot_digital_twin_lab.sensor_data (
 
 **Follow these steps in your terminal:**
 1. **Install the Tooling:** sudo apt install python3-venv
-2. **Create your Sandbox:** python3 -m venv .venv
-3. **Activate it:** source .venv/bin/activate
-(You should now see (.venv) appear at the beginning of your prompt!)
+2. **Create your Sandbox:** python3 -m venv PythonSandbox
+3. **Activate it:** source PythonSandbox/bin/activate
+(You should now see (PythonSandbox) appear at the beginning of your prompt!)
 4. **Install the Stack:**
 ```bash
-pip install paho-mqtt psycopg2 python-dotenv
+pip install paho-mqtt psycopg2 python-dotenv psycopg2-binary
 ```
 
 ---
@@ -77,3 +77,12 @@ A dashboard only shows you "now." By building this bridge, you are creating a **
 
 **Professional Security**
 By using .env files, you are practicing **Credential Management**. Hard-coding passwords into your scripts is the #1 cause of major data breaches. You are building like a pro from Day 1.
+
+---
+
+## 🛠️ Environment Check
+Ensure you are working from the root of your project and your sandbox is active:
+1. **Open Terminal:** Navigate to edu-iot-digital-twin-lab.
+2. **Activate:** * source PythonSandbox/bin/activate (Mac/Linux)
+   * PythonSandbox\Scripts\activate (Windows)
+3. **Verify:** You should see (PythonSandbox) at the start of your command line.

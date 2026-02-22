@@ -23,13 +23,31 @@ If you prefer a visual walkthrough, click the links below for a curated search o
 
 ---
 
-## 💻 Step 1. Browser Simulator (All OS)
-* **Action:** Create a free account at [Wokwi.com](https://wokwi.com).
-* **Note:** This works entirely in the browser (Chrome, Edge, or Firefox recommended). No installation is required.
+## 🛠️ Step 1: The Project Architecture (Directory Setup)
+Before writing a single line of code, we must build a professional "Sandbox." This ensures your global computer settings remain clean while your IoT project has exactly the tools it needs to run.
+
+**The Gold Standard Structure**
+You will create a parent folder for the entire course, with a dedicated "engine room" for your Python packages.
+
+1. **Create the Root Directory:** Create a folder named edu-iot-digital-twin-lab.
+2. **Create the Sandbox:** Inside that folder, create a nested folder named PythonSandbox.
+3. **The Logic Rule:**
+   * **Packages:** All library installations (via pip) will live safely inside PythonSandbox.
+   * **Code:** All of your .py scripts (Bridge, Analytics, Dashboards) must be saved in the root of edu-iot-digital-twin-lab.
+
+**Visualizing Your Workspace**
+Your folder structure should look exactly like this:
+```text
+edu-iot-digital-twin-lab/       <-- Save your .py scripts here
+└── PythonSandbox/              <-- Your Virtual Environment (The Engine)
+```
+
+> [!TIP]
+> Why this matters: In production environments, we never install libraries "globally." By nesting your PythonSandbox, you create a portable, isolated environment. If you ever need to move your project to a new computer, your "Engine" moves with your "Code."
 
 ---
 
-## 🐍 Step 2. Python 3.x Installation
+## 🐍 Step 2: Python 3.x Installation
 Python is the "bridge" we will use to move data from the cloud to our database.
 
 ### 🪟 Windows
@@ -47,9 +65,24 @@ Python is the "bridge" we will use to move data from the cloud to our database.
    `sudo apt update && sudo apt install python3 python3-pip`
 2. Verify by typing `python3 --version`.
 
+**Activating the Engine**
+Once your folders are created, you must "start" the engine to begin installing your tools.
+
+From your terminal, navigate inside edu-iot-digital-twin-lab and run:
+1. **Initialize the Sandbox:**
+```bash
+python3 -m venv PythonSandbox
+```
+2. **Activate the Environment:**
+* **Windows:** PythonSandbox\Scripts\activate
+* **macOS/Linux:** source PythonSandbox/bin/activate
+
+> [!IMPORTANT]
+> The Prompt Check: Once activated, your terminal prompt will show (PythonSandbox). This is your confirmation that you are now working inside the shielded environment.
+
 ---
 
-## 🐘 Step 3. PostgreSQL & pgAdmin 4
+## 🐘 Step 3: PostgreSQL & pgAdmin 4
 PostgreSQL is where we will store our historical sensor data.
 
 ### 🪟 Windows
@@ -66,7 +99,7 @@ PostgreSQL is where we will store our historical sensor data.
 
 ---
 
-## 🛠️ Step 4. Visual Studio Code (All OS)
+## 🛠️ Step 4: Visual Studio Code (All OS)
 VS Code is our primary workspace for writing Python and managing our GitHub repository.
 
 1. Download the correct version for your OS from [code.visualstudio.com](https://code.visualstudio.com/).
@@ -105,8 +138,17 @@ Open this folder in Visual Studio Code or your favorite programming IDE.
 
 Create your first sub-folders: Week-0, Week-1, and so on.
 
->[!TIP]
->Why this matters: Having a dedicated local directory allows you to use the VS Code Source Control tab to "Commit" and "Push" your work to your own GitHub profile. This builds your professional portfolio as you learn!
+> [!TIP]
+> Why this matters: Having a dedicated local directory allows you to use the VS Code Source Control tab to "Commit" and "Push" your work to your own GitHub profile. This builds your professional portfolio as you learn!
+
+---
+
+## 🛠️ Environment Check
+Ensure you are working from the root of your project and your sandbox is active:
+1. **Open Terminal:** Navigate to edu-iot-digital-twin-lab.
+2. **Activate:** * source PythonSandbox/bin/activate (Mac/Linux)
+   * PythonSandbox\Scripts\activate (Windows)
+3. **Verify:** You should see (PythonSandbox) at the start of your command line.
 
 ---
 

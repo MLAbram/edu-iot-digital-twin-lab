@@ -159,7 +159,7 @@ void loop() {
 }
 ```
 
-##💡 Logic Highlights
+## 💡 Logic Highlights
 Unique Namespaces: Using /student01 in the topic path is the first step toward Multi-Tenancy.
 * **The remoteOverride Flag:** This state-management approach prevents the loop() from immediately turning the LED back on after a reset.
 * **client.loop():** Without this line, the callback() will never trigger. It is the "heartbeat" of your inbound commands.
@@ -221,6 +221,15 @@ To graduate, your Capstone Digital Twin must include at least one of the followi
 * Wait for the **Red LED** to turn on in Wokwi.
 * Click "**Reset Local Alarm**" in your Streamlit Sidebar.
 * Watch the **Wokwi Serial Monitor**. If it says 🛑 REMOTE OVERRIDE and the LED turns off, you have successfully closed the loop!
+
+---
+
+## 🛠️ Environment Check
+Ensure you are working from the root of your project and your sandbox is active:
+1. **Open Terminal:** Navigate to edu-iot-digital-twin-lab.
+2. **Activate:** * source PythonSandbox/bin/activate (Mac/Linux)
+   * PythonSandbox\Scripts\activate (Windows)
+3. **Verify:** You should see (PythonSandbox) at the start of your command line.
 
 ---
 

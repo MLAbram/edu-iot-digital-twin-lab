@@ -24,9 +24,13 @@ CREATE TABLE edu_iot_digital_twin_lab.smart_sensor_data (
 );
 ```
 
+---
+
 ## ⚖️ Step 2: Clone Wokwi Work
 1. Open edu-iot-digital-twin-celsius-lab-week-2. 
 2. Make a copy by clicking on the down arrow next to the grayed out Save button. If your Save button is red, click to save first. Select the Save a copy options and name it: edu-iot-digital-twin-celsius-lab-week-5.
+
+---
 
 ## ⚙️ Step 3: The "Optimized" Wokwi C++ Logic
 **Add to Library: ArduinoJson**
@@ -144,6 +148,8 @@ void loop() {
 }
 ```
 
+---
+
 ## 🚦 Step 4: Validation & Execution Sequence
 To successfully test the "Smart Data" pipeline, you must follow this specific order. This ensures the "landing pad" is ready before the data starts flying.
 
@@ -180,6 +186,15 @@ This is where we verify the Report by Exception logic:
 * **No data appearing?** Ensure the MQTT_TOPIC in bridge_v2.py exactly matches the topic in your sketch.ino.
 * **JSON Error?** Make sure you added the ArduinoJson library in the Wokwi Library Manager tab.
 * **Database Error?** Confirm your .env file is present in the Week-5 folder.
+
+---
+
+## 🛠️ Environment Check
+Ensure you are working from the root of your project and your sandbox is active:
+1. **Open Terminal:** Navigate to edu-iot-digital-twin-lab.
+2. **Activate:** * source PythonSandbox/bin/activate (Mac/Linux)
+   * PythonSandbox\Scripts\activate (Windows)
+3. **Verify:** You should see (PythonSandbox) at the start of your command line.
 
 ---
 
